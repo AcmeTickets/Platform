@@ -1,0 +1,66 @@
+name: Deploy Azure Infrastructure
+
+on:
+  workflow_dispatch:
+
+env:
+  RESOURCE_GROUP: acmetickets_rg
+  CONTAINER_APP_NAME: acmetickets2025-app
+  CONTAINERAPPS_ENVIRONMENT: acmeticketsacadev
+  AZURE_LOCATION: eastus
+  SERVICEBUS_NAMESPACE: acmeticketsasb
+
+jobs:
+  deploy-container-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Create Azure Container Apps Environment
+        run: |
+          az containerapp env create \
+            --name "$CONTAINERAPPS_ENVIRONMENT" \
+            --resource-group "$RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION"
+          echo "Azure Container Apps Environment provisioned."
+
+      - name: Create Azure Service Bus Namespace
+        run: |
+          az servicebus namespace create \
+            --name "$SERVICEBUS_NAMESPACE" \
+            --resource-group "$RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION" \
+            --sku Standard
+          echo "Azure Service Bus Namespace '$SERVICEBUS_NAMESPACE' provisioned."
+
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Api
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name EventManagement.Api
+          echo "Azure Service Bus Queue 'EventManagement.Api' provisioned."
+
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Message
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name EventManagement.Message
+          echo "Azure Service Bus Queue 'EventManagement.Message' provisioned."
+
+      - name: Create Azure Service Bus Topic for TicketRequestedEvent
+        run: |
+          az servicebus topic create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name AcmeTickets2025.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent
+          echo "Azure Service Bus Topic 'AcmeTickets2025.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
+
+
