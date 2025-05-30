@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AcmeTickets.Contracts.Public</id>
+    <version>1.0.0</version>
+    <authors>YourName</authors>
+    <description>Public contracts for AcmeTickets domains.</description>
+    <tags>events contracts acmetickets</tags>
+    <repository type="git" url="https://github.com/YourOrg/YourRepo" commit="e7feaf84076db6ac1783a10f03a7fb5d4fd43ea4" />
+    <dependencies>
+      <group targetFramework="net9.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\AcmeTicket.com\Platform\src\Contracts\Public\bin\Debug\net9.0\PublicContracts.dll" target="lib\net9.0\PublicContracts.dll" />
+  </files>
+</package>

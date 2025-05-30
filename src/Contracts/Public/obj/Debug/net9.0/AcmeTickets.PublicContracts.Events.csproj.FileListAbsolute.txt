@@ -1,0 +1,12 @@
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\bin\Debug\net9.0\AcmeTickets.PublicContracts.Events.deps.json
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\bin\Debug\net9.0\AcmeTickets.PublicContracts.Events.dll
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\bin\Debug\net9.0\AcmeTickets.PublicContracts.Events.pdb
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.GeneratedMSBuildEditorConfig.editorconfig
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.AssemblyInfoInputs.cache
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.AssemblyInfo.cs
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.csproj.CoreCompileInputs.cache
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.sourcelink.json
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.dll
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\refint\AcmeTickets.PublicContracts.Events.dll
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\AcmeTickets.PublicContracts.Events.pdb
+C:\AcmeTicket.com\Platform\src\AcmeTickets.PublicContracts.Events\obj\Debug\net9.0\ref\AcmeTickets.PublicContracts.Events.dll
