@@ -60,7 +60,7 @@ jobs:
           az servicebus topic create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name AcmeTickets2025.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent
+            --name AcmeTickets.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent
           echo "Azure Service Bus Topic 'AcmeTickets2025.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
 
 
