@@ -5,7 +5,6 @@ on:
 
 env:
   RESOURCE_GROUP: acmetickets_rg
-  CONTAINER_APP_NAME: acmetickets2025-app
   CONTAINERAPPS_ENVIRONMENT: acmeticketsacadev
   AZURE_LOCATION: eastus
   SERVICEBUS_NAMESPACE: acmeticketsasb
@@ -60,7 +59,7 @@ jobs:
           az servicebus topic create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name AcmeTickets.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent
-          echo "Azure Service Bus Topic 'AcmeTickets2025.Domains.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
+            --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
+          echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
 
 
