@@ -1,5 +1,9 @@
 name: Publish NuGet Package
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     paths:
