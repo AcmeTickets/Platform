@@ -9,10 +9,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["src/Api/Api.csproj", "src/Api/"]
-COPY ["src/InternalContracts/InternalContracts.csproj", "src/InternalContracts/"]
 RUN dotnet restore "src/Api/Api.csproj"
 COPY src/Api/. /src/Api/
-COPY src/InternalContracts/. /src/InternalContracts/
 WORKDIR /src/Api
 RUN ls -l /src/Api
 RUN dotnet build "Api.csproj" -c $configuration -o /app/build
