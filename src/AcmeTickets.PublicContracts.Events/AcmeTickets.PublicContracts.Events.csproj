@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>AcmeTickets.PublicContracts.Events</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>YourName</Authors>
+    <Company>AcmeTickets</Company>
+    <Description>Public event contracts for AcmeTickets domains.</Description>
+    <RepositoryUrl>https://github.com/YourOrg/YourRepo</RepositoryUrl>
+    <PackageTags>events;contracts;acmetickets</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageOutputPath>$(OutputPath)</PackageOutputPath>
+  </PropertyGroup>
+
+</Project>
