@@ -8,6 +8,7 @@ USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG configuration=Release
 WORKDIR /src
+COPY nuget.config .
 COPY ["src/Api/Api.csproj", "src/Api/"]
 RUN dotnet restore "src/Api/Api.csproj"
 COPY src/Api/. /src/Api/
