@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     paths:
-      - 'src/AcmeTickets.PublicContracts.Events/**'
+      - 'src/Contracts/Public/**'
     branches:
       - main
   workflow_dispatch:
@@ -25,13 +25,13 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/AcmeTickets.PublicContracts.Events/AcmeTickets.PublicContracts.Events.csproj
+        run: dotnet restore src/Contracts/Public/PublicContracts.csproj
 
       - name: Build
-        run: dotnet build --configuration Release src/AcmeTickets.PublicContracts.Events/AcmeTickets.PublicContracts.Events.csproj
+        run: dotnet build --configuration Release src/Contracts/Public/PublicContracts.csproj
 
       - name: Pack
-        run: dotnet pack --configuration Release src/AcmeTickets.PublicContracts.Events/AcmeTickets.PublicContracts.Events.csproj --output ./nupkg
+        run: dotnet pack --configuration Release src/Contracts/Public/PublicContracts.csproj --output ./nupkg
 
       - name: Add GitHub Packages source
         run: dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"

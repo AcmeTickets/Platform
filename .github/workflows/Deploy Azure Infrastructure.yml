@@ -38,6 +38,7 @@ jobs:
             --sku Standard
           echo "Azure Service Bus Namespace '$SERVICEBUS_NAMESPACE' provisioned."
 
+        # EventManagement API
       - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Api
         run: |
           az servicebus queue create \
@@ -46,6 +47,7 @@ jobs:
             --name EventManagement.Api
           echo "Azure Service Bus Queue 'EventManagement.Api' provisioned."
 
+        # EventManagement Message
       - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Message
         run: |
           az servicebus queue create \
@@ -62,4 +64,20 @@ jobs:
             --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
           echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
 
+      # Platform API
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Platform.Api
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name Platform.Api
+          echo "Azure Service Bus Queue 'Platform.Api' provisioned."
 
+      # Platform Message
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Platform.Message
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name Platform.Message
+          echo "Azure Service Bus Queue 'Platform.Message' provisioned."

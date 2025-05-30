@@ -19,7 +19,7 @@ jobs:
     with:
       project_path: src/Api/Api.csproj
       dockerfile_path: src/Api/Dockerfile
-      image_name: ghcr.io/acmetickets/eventmanagement-api
+      image_name: ghcr.io/acmetickets/platform-api
 
   deploy-api:
     needs: build-and-publish-api
@@ -27,20 +27,20 @@ jobs:
     secrets: inherit
     with:
       image_tag: ${{ needs.build-and-publish-api.outputs.image_tag }}
-      container_app_name: eventmanagement-api
+      container_app_name: platform-api
 
-  build-and-publish-message:
-    uses: AcmeTickets/.github/.github/workflows/Build and Publish Docker Image.yml@main
-    secrets: inherit
-    with:
-      project_path: src/Message/Message.csproj
-      dockerfile_path: src/Message/Dockerfile
-      image_name: ghcr.io/acmetickets/eventmanagement-message
+  # build-and-publish-message:
+  #   uses: AcmeTickets/.github/.github/workflows/Build and Publish Docker Image.yml@main
+  #   secrets: inherit
+  #   with:
+  #     project_path: src/Message/Message.csproj
+  #     dockerfile_path: src/Message/Dockerfile
+  #     image_name: ghcr.io/acmetickets/eventmanagement-message
 
-  deploy-message:
-    needs: build-and-publish-message
-    uses: AcmeTickets/.github/.github/workflows/Deploy Messaging to Azure Container App.yml@main
-    secrets: inherit
-    with:
-      image_tag: ${{ needs.build-and-publish-message.outputs.image_tag }}
-      container_app_name: eventmanagement-message
+  # deploy-message:
+  #   needs: build-and-publish-message
+  #   uses: AcmeTickets/.github/.github/workflows/Deploy Messaging to Azure Container App.yml@main
+  #   secrets: inherit
+  #   with:
+  #     image_tag: ${{ needs.build-and-publish-message.outputs.image_tag }}
+  #     container_app_name: eventmanagement-message

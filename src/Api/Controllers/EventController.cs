@@ -1,10 +1,7 @@
 using NServiceBus;
 using Microsoft.AspNetCore.Mvc;
-using AcmeTickets.EventManagement.Contracts.Messages;
-using AcmeTickets.EventManagement.Contracts.Commands;
-using AcmeTickets.Inventory.Contracts.Messages;
-using AcmeTickets.Inventory.Contracts.Commands;
-using AcmeTickets.Inventory.Contracts;
+using AcmeTickets.Platform.API.Commands;
+using AcmeTickets.Contracts.Public.Platform.Commands;
 
 namespace AcmeTickets.Platform.Api.Controllers
 {
@@ -25,29 +22,29 @@ namespace AcmeTickets.Platform.Api.Controllers
             var random = new Random();
 
             var sendOptions = new SendOptions();
-            sendOptions.SetDestination("ASBTriggerEventManagementPurchase");
+            sendOptions.SetDestination("EventManagement.Message");
             addEvent.EventId = Guid.NewGuid();
             await _session.Send(addEvent, sendOptions);
 
-            var ticketGroup = new AddTicketGroupToInventory
-            {
-                EventId = addEvent.EventId,
-            };
+            // var ticketGroup = new AddTicketGroupToInventory
+            // {
+            //     EventId = addEvent.EventId,
+            // };
 
           
-            sendOptions = new SendOptions();
-            sendOptions.SetDestination("ASBTriggerInventory");
+            // sendOptions = new SendOptions();
+            // sendOptions.SetDestination("ASBTriggerInventory");
 
-            for (int i = 1; i < 10; i++)
-            {
-                var numberOftickets = random.Next(4, 10);
-                ticketGroup.Tickets = new List<Tickets>();
-                for (int j = 1; j < numberOftickets; j++)
-                {
-                    ticketGroup.Tickets.Add(new Tickets() { Row = ticketRows[i].ToString(), Seat = j, TicketId = Guid.NewGuid() });
-                }
-                await _session.Send(ticketGroup, sendOptions);
-            }
+            // for (int i = 1; i < 10; i++)
+            // {
+            //     var numberOftickets = random.Next(4, 10);
+            //     ticketGroup.Tickets = new List<Tickets>();
+            //     for (int j = 1; j < numberOftickets; j++)
+            //     {
+            //         ticketGroup.Tickets.Add(new Tickets() { Row = ticketRows[i].ToString(), Seat = j, TicketId = Guid.NewGuid() });
+            //     }
+            //     await _session.Send(ticketGroup, sendOptions);
+            // }
             return new OkObjectResult($"{nameof(AddEvent)} sent. {addEvent.EventId}");
 
         }
