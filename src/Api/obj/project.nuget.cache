@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yE+IDtZ5qCA=",
+  "dgSpecHash": "SGg35izVkbM=",
   "success": true,
-  "projectFilePath": "C:\\AcmeTicket.com\\Platform\\src\\api\\api.csproj",
+  "projectFilePath": "C:\\AcmeTicket.com\\Platform\\src\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Steven.Suing\\.nuget\\packages\\acmetickets.contracts.public\\1.0.0\\acmetickets.contracts.public.1.0.0.nupkg.sha512",
     "C:\\Users\\Steven.Suing\\.nuget\\packages\\azure.core\\1.45.0\\azure.core.1.45.0.nupkg.sha512",

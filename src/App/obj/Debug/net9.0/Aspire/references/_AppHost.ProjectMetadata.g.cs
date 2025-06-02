@@ -8,5 +8,5 @@ namespace Projects;
 public class App
 {
     private App() { }
-    public static string ProjectPath => """C:\AcmeTicket.com\EventManagement\src\app""";
+    public static string ProjectPath => """C:\AcmeTicket.com\Platform\src\App""";
 }

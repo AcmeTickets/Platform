@@ -17,14 +17,14 @@ using System.Reflection;
     "tools\\ext\\"))]
 [assembly: System.Reflection.AssemblyMetadata("dcpbinpath", ("C:\\Users\\Steven.Suing\\.nuget\\packages\\aspire.hosting.orchestration.win-x64\\9.0.0\\" +
     "tools\\ext\\bin\\"))]
-[assembly: System.Reflection.AssemblyMetadata("apphostprojectpath", "C:\\AcmeTicket.com\\EventManagement\\src\\app")]
+[assembly: System.Reflection.AssemblyMetadata("apphostprojectpath", "C:\\AcmeTicket.com\\Platform\\src\\App")]
 [assembly: System.Reflection.AssemblyMetadata("apphostprojectname", "App.csproj")]
 [assembly: System.Reflection.AssemblyMetadata("aspiredashboardpath", ("C:\\Users\\Steven.Suing\\.nuget\\packages\\aspire.dashboard.sdk.win-x64\\9.0.0\\tools\\As" +
     "pire.Dashboard.exe"))]
 [assembly: System.Reflection.AssemblyCompanyAttribute("App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f43e556c611ca94c9a0d77001118f4ba2846ff1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00c7ca2b52b5cdb1a2db31045a4222f450bf5544")]
 [assembly: System.Reflection.AssemblyProductAttribute("App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

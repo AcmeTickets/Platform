@@ -8,9 +8,8 @@
     ".NETCoreApp,Version=v9.0": {
       "Message/1.0.0": {
         "dependencies": {
-          "AcmeTickets.PublicContracts.Events": "1.0.0",
+          "AcmeTickets.Contracts.Public": "1.0.0",
           "Azure.Messaging.ServiceBus": "7.19.0",
-          "InternalContracts": "1.0.0",
           "NServiceBus": "9.2.7",
           "NServiceBus.Extensions.Hosting": "3.0.1",
           "NServiceBus.Transport.AzureServiceBus": "5.0.1"
@@ -19,9 +18,9 @@
           "Message.dll": {}
         }
       },
-      "AcmeTickets.PublicContracts.Events/1.0.0": {
+      "AcmeTickets.Contracts.Public/1.0.0": {
         "runtime": {
-          "lib/net9.0/AcmeTickets.PublicContracts.Events.dll": {
+          "lib/net9.0/PublicContracts.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -583,15 +582,7 @@
           "System.Text.Encodings.Web": "6.0.0"
         }
       },
-      "System.Threading.Tasks.Extensions/4.5.4": {},
-      "InternalContracts/1.0.0": {
-        "runtime": {
-          "InternalContracts.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      }
+      "System.Threading.Tasks.Extensions/4.5.4": {}
     }
   },
   "libraries": {
@@ -600,12 +591,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AcmeTickets.PublicContracts.Events/1.0.0": {
+    "AcmeTickets.Contracts.Public/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Tzm/XO+6aEUElHEV/AIILnOpQarprKY9si38R22JH98p5rHXPw1Cg2iOZMkgAfLKIf8FT9xMB1/pa2TsA0y8KQ==",
-      "path": "acmetickets.publiccontracts.events/1.0.0",
-      "hashPath": "acmetickets.publiccontracts.events.1.0.0.nupkg.sha512"
+      "sha512": "sha512-0Lly479mFE+L8Li9uoyX4AbMnBHICH8oulxztU5SSuDalMXB0viLE6LOtts3bQmv2+GztUhwhDQ32UCopQ9OxA==",
+      "path": "acmetickets.contracts.public/1.0.0",
+      "hashPath": "acmetickets.contracts.public.1.0.0.nupkg.sha512"
     },
     "Azure.Core/1.45.0": {
       "type": "package",
@@ -935,11 +926,6 @@
       "sha512": "sha512-zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
       "path": "system.threading.tasks.extensions/4.5.4",
       "hashPath": "system.threading.tasks.extensions.4.5.4.nupkg.sha512"
-    },
-    "InternalContracts/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }

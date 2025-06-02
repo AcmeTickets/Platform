@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj": {}
+    "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj": {}
   },
   "projects": {
-    "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj": {
+    "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj",
-        "projectName": "InternalContracts",
-        "projectPath": "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj",
+        "projectUniqueName": "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj",
+        "projectName": "Message",
+        "projectPath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj",
         "packagesPath": "C:\\Users\\Steven.Suing\\.nuget\\packages\\",
-        "outputPath": "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\obj\\",
+        "outputPath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\AcmeTicket.com\\EventManagement\\NuGet.Config",
+          "C:\\AcmeTicket.com\\Platform\\NuGet.Config",
           "C:\\Users\\Steven.Suing\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -52,80 +52,8 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj",
-        "projectName": "Message",
-        "projectPath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj",
-        "packagesPath": "C:\\Users\\Steven.Suing\\.nuget\\packages\\",
-        "outputPath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\AcmeTicket.com\\EventManagement\\NuGet.Config",
-          "C:\\Users\\Steven.Suing\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net9.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.pkg.github.com/AcmeTickets/index.json": {}
-        },
-        "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
-            "projectReferences": {
-              "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj": {
-                "projectPath": "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
           "dependencies": {
-            "AcmeTickets.PublicContracts.Events": {
+            "AcmeTickets.Contracts.Public": {
               "target": "Package",
               "version": "[1.0.0, )"
             },

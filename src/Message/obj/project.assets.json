@@ -2,13 +2,13 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "AcmeTickets.PublicContracts.Events/1.0.0": {
+      "AcmeTickets.Contracts.Public/1.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/AcmeTickets.PublicContracts.Events.dll": {}
+          "lib/net9.0/PublicContracts.dll": {}
         },
         "runtime": {
-          "lib/net9.0/AcmeTickets.PublicContracts.Events.dll": {}
+          "lib/net9.0/PublicContracts.dll": {}
         }
       },
       "Azure.Core/1.45.0": {
@@ -933,29 +933,19 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
-      },
-      "InternalContracts/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/InternalContracts.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/InternalContracts.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "AcmeTickets.PublicContracts.Events/1.0.0": {
-      "sha512": "Tzm/XO+6aEUElHEV/AIILnOpQarprKY9si38R22JH98p5rHXPw1Cg2iOZMkgAfLKIf8FT9xMB1/pa2TsA0y8KQ==",
+    "AcmeTickets.Contracts.Public/1.0.0": {
+      "sha512": "0Lly479mFE+L8Li9uoyX4AbMnBHICH8oulxztU5SSuDalMXB0viLE6LOtts3bQmv2+GztUhwhDQ32UCopQ9OxA==",
       "type": "package",
-      "path": "acmetickets.publiccontracts.events/1.0.0",
+      "path": "acmetickets.contracts.public/1.0.0",
       "files": [
         ".nupkg.metadata",
-        "acmetickets.publiccontracts.events.1.0.0.nupkg.sha512",
-        "acmetickets.publiccontracts.events.nuspec",
-        "lib/net9.0/AcmeTickets.PublicContracts.Events.dll"
+        "acmetickets.contracts.public.1.0.0.nupkg.sha512",
+        "acmetickets.contracts.public.nuspec",
+        "lib/net9.0/PublicContracts.dll"
       ]
     },
     "Azure.Core/1.45.0": {
@@ -2347,18 +2337,12 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "InternalContracts/1.0.0": {
-      "type": "project",
-      "path": "../InternalContracts/InternalContracts.csproj",
-      "msbuildProject": "../InternalContracts/InternalContracts.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "AcmeTickets.PublicContracts.Events >= 1.0.0",
+      "AcmeTickets.Contracts.Public >= 1.0.0",
       "Azure.Messaging.ServiceBus >= 7.*",
-      "InternalContracts >= 1.0.0",
       "NServiceBus >= 9.*",
       "NServiceBus.Extensions.Hosting >= 3.*",
       "NServiceBus.Transport.AzureServiceBus >= 5.*"
@@ -2371,17 +2355,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj",
+      "projectUniqueName": "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj",
       "projectName": "Message",
-      "projectPath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\Message.csproj",
+      "projectPath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\Message.csproj",
       "packagesPath": "C:\\Users\\Steven.Suing\\.nuget\\packages\\",
-      "outputPath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\obj\\",
+      "outputPath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\AcmeTicket.com\\EventManagement\\NuGet.Config",
+        "C:\\AcmeTicket.com\\Platform\\NuGet.Config",
         "C:\\Users\\Steven.Suing\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -2398,11 +2382,7 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {
-            "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj": {
-              "projectPath": "C:\\AcmeTicket.com\\EventManagement\\src\\InternalContracts\\InternalContracts.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -2421,7 +2401,7 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "AcmeTickets.PublicContracts.Events": {
+          "AcmeTickets.Contracts.Public": {
             "target": "Package",
             "version": "[1.0.0, )"
           },

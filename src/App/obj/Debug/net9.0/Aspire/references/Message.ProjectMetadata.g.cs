@@ -7,5 +7,5 @@ namespace Projects;
 [global::System.Diagnostics.DebuggerDisplay("Type = {GetType().Name,nq}, ProjectPath = {ProjectPath}")]
 public class Message : global::Aspire.Hosting.IProjectMetadata
 {
-    public string ProjectPath => """C:\AcmeTicket.com\EventManagement\src\Message\Message.csproj""";
+    public string ProjectPath => """C:\AcmeTicket.com\Platform\src\Message\Message.csproj""";
 }

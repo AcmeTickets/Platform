@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j3YE5KDdSgY=",
+  "dgSpecHash": "Jbmc50Bdgxs=",
   "success": true,
-  "projectFilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\App\\App.csproj",
+  "projectFilePath": "C:\\AcmeTicket.com\\Platform\\src\\App\\App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Steven.Suing\\.nuget\\packages\\aspire.dashboard.sdk.win-x64\\9.0.0\\aspire.dashboard.sdk.win-x64.9.0.0.nupkg.sha512",
     "C:\\Users\\Steven.Suing\\.nuget\\packages\\aspire.hosting\\9.0.0\\aspire.hosting.9.0.0.nupkg.sha512",

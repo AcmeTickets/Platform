@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\AcmeTicket.com\\Platform\\src\\api\\api.csproj": {}
+    "C:\\AcmeTicket.com\\Platform\\src\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\AcmeTicket.com\\Platform\\src\\api\\api.csproj": {
+    "C:\\AcmeTicket.com\\Platform\\src\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\AcmeTicket.com\\Platform\\src\\api\\api.csproj",
-        "projectName": "api",
-        "projectPath": "C:\\AcmeTicket.com\\Platform\\src\\api\\api.csproj",
+        "projectUniqueName": "C:\\AcmeTicket.com\\Platform\\src\\Api\\Api.csproj",
+        "projectName": "Api",
+        "projectPath": "C:\\AcmeTicket.com\\Platform\\src\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\Steven.Suing\\.nuget\\packages\\",
-        "outputPath": "C:\\AcmeTicket.com\\Platform\\src\\api\\obj\\",
+        "outputPath": "C:\\AcmeTicket.com\\Platform\\src\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

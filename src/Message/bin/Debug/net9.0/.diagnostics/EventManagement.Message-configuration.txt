@@ -25,139 +25,139 @@
     "ErrorsThrownDuringScanning": false,
     "SkippedFiles": [
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Azure.Amqp.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Azure.Amqp.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Bcl.AsyncInterfaces.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Bcl.AsyncInterfaces.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Binder.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Binder.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.CommandLine.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.CommandLine.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.FileExtensions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Json.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Json.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.UserSecrets.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.UserSecrets.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Physical.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Physical.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileSystemGlobbing.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileSystemGlobbing.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Configuration.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Configuration.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Console.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Console.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Debug.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Debug.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventLog.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventLog.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventSource.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventSource.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.ConfigurationExtensions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Primitives.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Primitives.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Diagnostics.EventLog.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Diagnostics.EventLog.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Memory.Data.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Memory.Data.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Pkcs.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Pkcs.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Xml.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Xml.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Message.exe",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Message.exe",
         "SkipReason": "File is not a .NET assembly."
       },
       {
@@ -165,27 +165,11 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Configuration.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Configuration.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.Abstractions.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.UserSecrets.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\Microsoft.VisualBasic.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -193,11 +177,35 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Azure.Amqp.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Azure.Amqp.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Diagnostics.Debug.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Text.Json.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Diagnostics.Contracts.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Runtime.Handles.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.UserSecrets.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\Microsoft.VisualBasic.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -205,11 +213,19 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Diagnostics.EventLog.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Diagnostics.EventLog.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Bcl.AsyncInterfaces.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Bcl.AsyncInterfaces.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.dll",
+        "SkipReason": "File is a .NET runtime assembly."
+      },
+      {
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -221,31 +237,31 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Binder.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Binder.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Physical.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Physical.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.CommandLine.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.CommandLine.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.EnvironmentVariables.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.FileExtensions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.FileExtensions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Json.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Configuration.Json.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -253,11 +269,11 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -265,15 +281,15 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Diagnostics.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Abstractions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileProviders.Abstractions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -281,11 +297,11 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileSystemGlobbing.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.FileSystemGlobbing.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Hosting.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -293,23 +309,23 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Console.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Console.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Memory.Data.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Memory.Data.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Primitives.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Primitives.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Debug.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.Debug.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -321,11 +337,11 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventLog.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventLog.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventSource.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Logging.EventSource.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -333,7 +349,7 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Microsoft.Extensions.Options.ConfigurationExtensions.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -357,15 +373,15 @@
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Diagnostics.EventLog.Messages.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Diagnostics.EventLog.Messages.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Security.Cryptography.Pkcs.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\runtimes\\win\\lib\\net8.0\\System.Security.Cryptography.Pkcs.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
-        "FilePath": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Xml.dll",
+        "FilePath": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\System.Security.Cryptography.Xml.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -394,18 +410,6 @@
       },
       {
         "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Data.DataSetExtensions.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Diagnostics.Debug.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Text.Json.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Diagnostics.Contracts.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -530,10 +534,6 @@
       },
       {
         "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Runtime.Extensions.dll",
-        "SkipReason": "File is a .NET runtime assembly."
-      },
-      {
-        "FilePath": "C:\\Program Files\\dotnet\\shared\\Microsoft.NETCore.App\\9.0.5\\System.Runtime.Handles.dll",
         "SkipReason": "File is a .NET runtime assembly."
       },
       {
@@ -1515,7 +1515,7 @@
     }
   ],
   "Hosting": {
-    "HostId": "476ff716-3dc8-9681-6e6a-7a6eb76e43c0",
+    "HostId": "e1d557ca-ec5a-f642-6c7d-07c34bfb4be3",
     "HostDisplayName": "L01678",
     "MachineName": "L01678",
     "OSPlatform": 2,
@@ -1525,11 +1525,11 @@
     "ProcessorCount": 20,
     "Is64BitProcess": true,
     "CLRVersion": "9.0.5",
-    "WorkingSet": 50372608,
+    "WorkingSet": 48848896,
     "SystemPageSize": 4096,
     "HostName": "L01678",
     "UserName": "Steven.Suing",
-    "PathToExe": "C:\\AcmeTicket.com\\EventManagement\\src\\Message\\bin\\Debug\\net9.0\\Message.dll"
+    "PathToExe": "C:\\AcmeTicket.com\\Platform\\src\\Message\\bin\\Debug\\net9.0\\Message.dll"
   },
   "Licensing": {
     "RegisteredTo": null,
@@ -1549,9 +1549,9 @@
     "MessageConventions": [
       "Modified NServiceBus Marker Interfaces"
     ],
-    "NumberOfMessagesFoundAtStartup": 1,
+    "NumberOfMessagesFoundAtStartup": 0,
     "Messages": [
-      "AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent"
+      
     ]
   },
   "Receiving": {
@@ -1571,9 +1571,7 @@
       
     ],
     "MessageHandlers": {
-      "AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent": [
-        "AcmeTickets.Domains.EventManagement.Message.Handlers.TicketRequestedEventHandler"
-      ]
+      
     }
   },
   "Recoverability": {
