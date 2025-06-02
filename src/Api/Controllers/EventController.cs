@@ -16,14 +16,19 @@ namespace AcmeTickets.Platform.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddEventWithTickets addEvent)
+        public async Task<IActionResult> Post([FromBody] AddEventWithTickets addEventWithTickets)
         {
             var ticketRows = "ZABCDEFGHIJKLMNOPQRS".ToCharArray();
             var random = new Random();
 
             var sendOptions = new SendOptions();
             sendOptions.SetDestination("EventManagement.Message");
-            addEvent.EventId = Guid.NewGuid();
+            var addEvent = new AddEvent
+            {
+                EventName = addEventWithTickets.EventName,
+                EventDate = addEventWithTickets.EventDate,
+                EventId - addEventWithTickets.EventId
+            };
             await _session.Send(addEvent, sendOptions);
 
             // var ticketGroup = new AddTicketGroupToInventory

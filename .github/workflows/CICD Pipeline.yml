@@ -27,6 +27,7 @@ jobs:
     with:
       image_tag: ${{ needs.build-and-publish-api.outputs.image_tag }}
       container_app_name: platform-api
+      target_port: 5272
 
   # build-and-publish-message:
   #   uses: AcmeTickets/.github/.github/workflows/Build and Publish Docker Image.yml@main
