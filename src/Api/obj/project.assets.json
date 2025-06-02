@@ -2,13 +2,13 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "AcmeTickets.PublicContracts.Events/1.0.0": {
+      "AcmeTickets.Contracts.Public/1.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/AcmeTickets.PublicContracts.Events.dll": {}
+          "lib/net9.0/PublicContracts.dll": {}
         },
         "runtime": {
-          "lib/net9.0/AcmeTickets.PublicContracts.Events.dll": {}
+          "lib/net9.0/PublicContracts.dll": {}
         }
       },
       "Azure.Core/1.45.0": {
@@ -1039,29 +1039,19 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
-      },
-      "AcmeTickets.Contracts.Public/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "compile": {
-          "bin/placeholder/AcmeTickets.Contracts.Public.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AcmeTickets.Contracts.Public.dll": {}
-        }
       }
     }
   },
   "libraries": {
-    "AcmeTickets.PublicContracts.Events/1.0.0": {
-      "sha512": "Tzm/XO+6aEUElHEV/AIILnOpQarprKY9si38R22JH98p5rHXPw1Cg2iOZMkgAfLKIf8FT9xMB1/pa2TsA0y8KQ==",
+    "AcmeTickets.Contracts.Public/1.0.0": {
+      "sha512": "0Lly479mFE+L8Li9uoyX4AbMnBHICH8oulxztU5SSuDalMXB0viLE6LOtts3bQmv2+GztUhwhDQ32UCopQ9OxA==",
       "type": "package",
-      "path": "acmetickets.publiccontracts.events/1.0.0",
+      "path": "acmetickets.contracts.public/1.0.0",
       "files": [
         ".nupkg.metadata",
-        "acmetickets.publiccontracts.events.1.0.0.nupkg.sha512",
-        "acmetickets.publiccontracts.events.nuspec",
-        "lib/net9.0/AcmeTickets.PublicContracts.Events.dll"
+        "acmetickets.contracts.public.1.0.0.nupkg.sha512",
+        "acmetickets.contracts.public.nuspec",
+        "lib/net9.0/PublicContracts.dll"
       ]
     },
     "Azure.Core/1.45.0": {
@@ -2817,17 +2807,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "AcmeTickets.Contracts.Public/1.0.0": {
-      "type": "project",
-      "path": "../Contracts/Public/PublicContracts.csproj",
-      "msbuildProject": "../Contracts/Public/PublicContracts.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "AcmeTickets.Contracts.Public >= 1.0.0",
-      "AcmeTickets.PublicContracts.Events >= 1.0.0",
       "Azure.Messaging.ServiceBus >= 7.*",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0",
       "NServiceBus >= 9.*",
@@ -2853,6 +2837,7 @@
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
+        "C:\\AcmeTicket.com\\Platform\\NuGet.Config",
         "C:\\Users\\Steven.Suing\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -2864,16 +2849,12 @@
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.pkg.github.com/acmetickets/index.json": {}
+        "https://nuget.pkg.github.com/AcmeTickets/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {
-            "C:\\AcmeTicket.com\\Platform\\src\\Contracts\\Public\\PublicContracts.csproj": {
-              "projectPath": "C:\\AcmeTicket.com\\Platform\\src\\Contracts\\Public\\PublicContracts.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -2892,7 +2873,7 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "AcmeTickets.PublicContracts.Events": {
+          "AcmeTickets.Contracts.Public": {
             "target": "Package",
             "version": "[1.0.0, )"
           },

@@ -110,7 +110,6 @@ C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Api.deps.json
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Api.runtimeconfig.json
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Api.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Api.pdb
-C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\AcmeTickets.PublicContracts.Events.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Azure.Core.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Azure.Core.Amqp.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Azure.Messaging.ServiceBus.dll
@@ -129,7 +128,6 @@ C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagg
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\System.ClientModel.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\System.Memory.Data.dll
 C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\PublicContracts.dll
-C:\AcmeTicket.com\Platform\src\Api\bin\Debug\net9.0\PublicContracts.pdb
 C:\AcmeTicket.com\Platform\src\Api\obj\Debug\net9.0\scopedcss\bundle\Api.styles.css
 C:\AcmeTicket.com\Platform\src\Api\obj\Debug\net9.0\staticwebassets.build.json
 C:\AcmeTicket.com\Platform\src\Api\obj\Debug\net9.0\staticwebassets.build.json.cache
