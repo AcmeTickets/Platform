@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Public contracts for AcmeTickets domains.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+640ee60250799e409e9d5ff50b09e7472a8836af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63f063fdf02801330d124af244d20624cd4ef905")]
 [assembly: System.Reflection.AssemblyProductAttribute("PublicContracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PublicContracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
