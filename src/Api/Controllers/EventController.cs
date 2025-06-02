@@ -27,7 +27,7 @@ namespace AcmeTickets.Platform.Api.Controllers
             {
                 EventName = addEventWithTickets.EventName,
                 EventDate = addEventWithTickets.EventDate,
-                EventId - addEventWithTickets.EventId
+                EventId = addEventWithTickets.EventId
             };
             await _session.Send(addEvent, sendOptions);
 

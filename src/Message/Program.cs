@@ -10,7 +10,7 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 builder.Logging.AddConsole();
 
-var endpointConfiguration = new EndpointConfiguration("EventManagement.Message");
+var endpointConfiguration = new EndpointConfiguration("Platform.Message");
 endpointConfiguration.Conventions()
     .DefiningEventsAs(type => type.Namespace != null && type.Namespace.EndsWith("Events"))
     .DefiningCommandsAs(type => type.Namespace != null && type.Namespace.EndsWith("Commands"));
