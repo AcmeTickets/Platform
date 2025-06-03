@@ -14,10 +14,8 @@ ARG GITHUB_TOKEN
 ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 COPY ["src/Message/Message.csproj", "src/Message/"]
-COPY ["src/InternalContracts/InternalContracts.csproj", "src/InternalContracts/"]
 RUN dotnet restore "src/Message/Message.csproj"
 COPY src/Message/. /src/Message/
-COPY src/InternalContracts/. /src/InternalContracts/
 WORKDIR /src/Message
 RUN ls -l /src/Message
 RUN dotnet build "Message.csproj" -c $configuration -o /app/build
