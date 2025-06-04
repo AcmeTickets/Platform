@@ -82,7 +82,7 @@ jobs:
             --name Platform.Message
           echo "Azure Service Bus Queue 'Platform.Message' provisioned."
 
-      # Create Azure CosmosDB instance for EventManagement (low-cost SKU)
+      # Create Azure CosmosDB instance for EventManagement (low-cost, free tier)
       - name: Create Azure CosmosDB Account for EventManagementDb
         run: |
           az cosmosdb create \
@@ -91,9 +91,8 @@ jobs:
             --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
             --default-consistency-level Session \
             --kind GlobalDocumentDB \
-            --enable-free-tier true \
-            --sku-name Standard
-          echo "Azure CosmosDB Account 'EventManagementDb' provisioned with free tier and Standard (low-cost) SKU."
+            --enable-free-tier true
+          echo "Azure CosmosDB Account 'EventManagementDb' provisioned with free tier."
 
       - name: Create CosmosDB Database and Collection for Events
         run: |
