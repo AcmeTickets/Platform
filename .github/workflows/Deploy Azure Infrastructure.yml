@@ -81,3 +81,32 @@ jobs:
             --namespace-name "$SERVICEBUS_NAMESPACE" \
             --name Platform.Message
           echo "Azure Service Bus Queue 'Platform.Message' provisioned."
+
+      # Create Azure CosmosDB instance for EventManagement (low-cost SKU)
+      - name: Create Azure CosmosDB Account for EventManagementDb
+        run: |
+          az cosmosdb create \
+            --name EventManagementDb \
+            --resource-group "$RESOURCE_GROUP" \
+            --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
+            --default-consistency-level Session \
+            --kind GlobalDocumentDB \
+            --enable-free-tier true \
+            --sku-name Standard
+          echo "Azure CosmosDB Account 'EventManagementDb' provisioned with free tier and Standard (low-cost) SKU."
+
+      - name: Create CosmosDB Database and Collection for Events
+        run: |
+          az cosmosdb sql database create \
+            --account-name EventManagementDb \
+            --resource-group "$RESOURCE_GROUP" \
+            --name EventManagement
+          az cosmosdb sql container create \
+            --account-name EventManagementDb \
+            --resource-group "$RESOURCE_GROUP" \
+            --database-name EventManagement \
+            --name Events \
+            --partition-key-path "/id"
+          echo "CosmosDB Collection 'Events' created in database 'EventManagement'."
+
+
