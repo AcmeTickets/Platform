@@ -86,7 +86,7 @@ jobs:
       - name: Create Azure CosmosDB Account for EventManagementDb
         run: |
           az cosmosdb create \
-            --name EventManagementDb \
+            --name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
             --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
             --default-consistency-level Session \
