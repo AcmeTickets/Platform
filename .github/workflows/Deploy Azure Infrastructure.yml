@@ -6,7 +6,7 @@ on:
 env:
   RESOURCE_GROUP: acmetickets_rg
   CONTAINERAPPS_ENVIRONMENT: acmeticketsacadev
-  AZURE_LOCATION: eastus
+  AZURE_LOCATION: eastus2
   SERVICEBUS_NAMESPACE: acmeticketsasb
 
 jobs:
