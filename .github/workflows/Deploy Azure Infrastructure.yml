@@ -2,6 +2,11 @@ name: Deploy Azure Infrastructure
 
 on:
   workflow_dispatch:
+    
+permissions:
+    contents: read
+    id-token: write # Required to fetch an OIDC token for Azure login.
+    actions: write # Required to use the Azure login action.
 
 env:
   RESOURCE_GROUP: acmetickets_rg
