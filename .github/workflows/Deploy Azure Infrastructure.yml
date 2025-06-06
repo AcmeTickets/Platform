@@ -121,7 +121,7 @@ jobs:
           az cosmosdb sql database create \
             --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
-            --name eventmanagement \
+            --name eventmanagement
           echo "CosmosDB Database 'eventmanagement' created."
 
       - name: Wait for CosmosDB Database eventmanagement to be available
