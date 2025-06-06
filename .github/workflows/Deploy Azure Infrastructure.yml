@@ -107,12 +107,34 @@ jobs:
             --kind GlobalDocumentDB
           echo "Azure CosmosDB Account 'EventManagementDb' provisioned with default (lowest) tier."
 
-      - name: Create CosmosDB Database and Collection for Events
+      - name: Wait for CosmosDB Account EventManagementDb to be available
+        run: |
+          for i in {1..20}; do
+            az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" && break
+            echo "Waiting for CosmosDB account 'eventmanagementdb' to be ready... ($i/20)"
+            sleep 15
+          done
+          echo "CosmosDB account 'eventmanagementdb' is now available."
+
+      - name: Create CosmosDB Database for Events
         run: |
           az cosmosdb sql database create \
             --account-name EventManagementDb \
             --resource-group "$RESOURCE_GROUP" \
             --name EventManagement
+          echo "CosmosDB Database 'EventManagement' created."
+
+      - name: Wait for CosmosDB Database EventManagement to be available
+        run: |
+          for i in {1..20}; do
+            az cosmosdb sql database show --account-name EventManagementDb --resource-group "$RESOURCE_GROUP" --name EventManagement && break
+            echo "Waiting for CosmosDB database 'EventManagement' to be ready... ($i/20)"
+            sleep 10
+          done
+          echo "CosmosDB database 'EventManagement' is now available."
+
+      - name: Create CosmosDB Collection for Events
+        run: |
           az cosmosdb sql container create \
             --account-name EventManagementDb \
             --resource-group "$RESOURCE_GROUP" \
