@@ -28,6 +28,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Create Resource Group if not exists
+        run: |
+          az group create \
+            --name "$RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION"
+          echo "Resource group '$RESOURCE_GROUP' ensured."
+
       - name: Create Azure Container Apps Environment
         run: |
           az containerapp env create \
