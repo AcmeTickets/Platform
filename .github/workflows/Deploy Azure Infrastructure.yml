@@ -97,7 +97,7 @@ jobs:
           echo "Azure Service Bus Queue 'Platform.Message' provisioned."
 
       # Create Azure CosmosDB instance for EventManagement (lowest paid tier)
-      - name: Create Azure CosmosDB Account for EventManagementDb
+      - name: Create Azure CosmosDB Account for eventmanagement
         run: |
           az cosmosdb create \
             --name eventmanagementdb \
@@ -105,7 +105,7 @@ jobs:
             --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
             --default-consistency-level Session \
             --kind GlobalDocumentDB
-          echo "Azure CosmosDB Account 'EventManagementDb' provisioned with default (lowest) tier."
+          echo "Azure CosmosDB Account 'eventmanagement' provisioned with default (lowest) tier."
 
       - name: Wait for CosmosDB Account EventManagementDb to be available
         run: |
@@ -119,28 +119,28 @@ jobs:
       - name: Create CosmosDB Database for Events
         run: |
           az cosmosdb sql database create \
-            --account-name EventManagementDb \
+            --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
-            --name EventManagement
-          echo "CosmosDB Database 'EventManagement' created."
+            --name eventmanagement \
+          echo "CosmosDB Database 'eventmanagement' created."
 
-      - name: Wait for CosmosDB Database EventManagement to be available
+      - name: Wait for CosmosDB Database eventmanagement to be available
         run: |
           for i in {1..20}; do
-            az cosmosdb sql database show --account-name EventManagementDb --resource-group "$RESOURCE_GROUP" --name EventManagement && break
-            echo "Waiting for CosmosDB database 'EventManagement' to be ready... ($i/20)"
+            az cosmosdb sql database show --account-name eventmanagementdb --resource-group "$RESOURCE_GROUP" --name eventmanagement && break
+            echo "Waiting for CosmosDB database 'eventmanagement' to be ready... ($i/20)"
             sleep 10
           done
-          echo "CosmosDB database 'EventManagement' is now available."
+          echo "CosmosDB database 'eventmanagement' is now available."
 
       - name: Create CosmosDB Collection for Events
         run: |
           az cosmosdb sql container create \
-            --account-name EventManagementDb \
+            --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
-            --database-name EventManagement \
+            --database-name eventmanagement \
             --name Events \
             --partition-key-path "/id"
-          echo "CosmosDB Collection 'Events' created in database 'EventManagement'."
+          echo "CosmosDB Collection 'Events' created in database 'eventmanagement'."
 
 
