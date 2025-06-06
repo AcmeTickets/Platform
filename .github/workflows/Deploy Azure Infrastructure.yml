@@ -2,7 +2,7 @@ name: Deploy Azure Infrastructure
 
 on:
   workflow_dispatch:
-    
+
 permissions:
     contents: read
     id-token: write # Required to fetch an OIDC token for Azure login.
@@ -17,8 +17,6 @@ env:
 jobs:
   deploy-container-app:
     runs-on: ubuntu-latest 
-    permissions:
-      id-token: write # Require write permission to Fetch an OIDC token.
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
