@@ -91,11 +91,18 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Assign Service Bus Data Sender/Receiver roles to Managed Identity
-      - name: Get Managed Identity Resource ID
+      # Ensure Managed Identity exists and get Resource ID
+      - name: Ensure Managed Identity exists and get Resource ID
         id: mi
         run: |
-          MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv 2>/dev/null || true)
+          if [ -z "$MI_ID" ]; then
+            az identity create --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP"
+            MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+            echo "Created managed identity: $MANAGED_IDENTITY_NAME"
+          else
+            echo "Managed identity already exists: $MANAGED_IDENTITY_NAME"
+          fi
           echo "id=$MI_ID" >> $GITHUB_OUTPUT
 
       - name: Get Service Bus Namespace Resource ID
