@@ -144,3 +144,32 @@ jobs:
             --resource-group "$RESOURCE_GROUP" \
             --environment "$CONTAINERAPPS_ENVIRONMENT" \
             --ingress external
+
+      # EventManagement API
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Api
+        run: |
+          set -e
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name EventManagement.Api
+          echo "Azure Service Bus Queue 'EventManagement.Api' provisioned."
+
+      # EventManagement Message
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Message
+        run: |
+          set -e
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name EventManagement.Message
+          echo "Azure Service Bus Queue 'EventManagement.Message' provisioned."
+
+      - name: Create Azure Service Bus Topic for TicketRequestedEvent
+        run: |
+          set -e
+          az servicebus topic create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
+          echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
