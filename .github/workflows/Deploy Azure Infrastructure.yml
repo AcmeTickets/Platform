@@ -48,11 +48,9 @@ jobs:
               --resource-group "$RESOURCE_GROUP" \
               --workspace-name "$WORKSPACE_NAME"
             echo "Created Log Analytics workspace: $WORKSPACE_NAME"
-            EXISTING=$(az monitor log-analytics workspace show --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query id -o tsv)
           else
             echo "Log Analytics workspace already exists: $WORKSPACE_NAME"
           fi
-          echo "workspace_id=$EXISTING" >> $GITHUB_OUTPUT
           WORKSPACE_CUSTOMER_ID=$(az monitor log-analytics workspace show --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query customerId -o tsv)
           WORKSPACE_SHARED_KEY=$(az monitor log-analytics workspace get-shared-keys --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query primarySharedKey -o tsv)
           echo "workspace_customer_id=$WORKSPACE_CUSTOMER_ID" >> $GITHUB_OUTPUT
@@ -64,7 +62,7 @@ jobs:
             --name "$CONTAINERAPPS_ENVIRONMENT" \
             --resource-group "$RESOURCE_GROUP" \
             --location "$AZURE_LOCATION" \
-            --logs-workspace-id "${{ steps.loganalytics.outputs.workspace_id }}" \
+            --logs-workspace-id "${{ steps.loganalytics.outputs.workspace_customer_id }}" \
             --logs-workspace-key "${{ steps.loganalytics.outputs.workspace_shared_key }}"
           echo "Azure Container Apps Environment provisioned."
 
