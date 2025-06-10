@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 permissions:
-    contents: read
-    id-token: write # Required to fetch an OIDC token for Azure login.
-    actions: write # Required to use the Azure login action.
+  contents: read
+  id-token: write
+  actions: write
 
 env:
   RESOURCE_GROUP: acmetickets_rg
@@ -15,12 +15,14 @@ env:
   SERVICEBUS_NAMESPACE: acmeticketsasb
 
 jobs:
-  deploy-container-app:
-    runs-on: ubuntu-latest 
+  deploy-shared-infra:
+    runs-on: ubuntu-latest
+    outputs:
+      resource_group: ${{ steps.set-outputs.outputs.resource_group }}
+      containerapps_env: ${{ steps.set-outputs.outputs.containerapps_env }}
+      azure_location: ${{ steps.set-outputs.outputs.azure_location }}
+      servicebus_namespace: ${{ steps.set-outputs.outputs.servicebus_namespace }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-   
       - name: Azure CLI Login
         uses: azure/login@v2
         with:
@@ -52,95 +54,23 @@ jobs:
             --sku Standard
           echo "Azure Service Bus Namespace '$SERVICEBUS_NAMESPACE' provisioned."
 
-        # EventManagement API
-      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Api
+      - name: Set workflow outputs
+        id: set-outputs
         run: |
-          az servicebus queue create \
-            --resource-group "$RESOURCE_GROUP" \
-            --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name EventManagement.Api
-          echo "Azure Service Bus Queue 'EventManagement.Api' provisioned."
+          echo "resource_group=$RESOURCE_GROUP" >> $GITHUB_OUTPUT
+          echo "containerapps_env=$CONTAINERAPPS_ENVIRONMENT" >> $GITHUB_OUTPUT
+          echo "azure_location=$AZURE_LOCATION" >> $GITHUB_OUTPUT
+          echo "servicebus_namespace=$SERVICEBUS_NAMESPACE" >> $GITHUB_OUTPUT
 
-        # EventManagement Message
-      - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Message
-        run: |
-          az servicebus queue create \
-            --resource-group "$RESOURCE_GROUP" \
-            --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name EventManagement.Message
-          echo "Azure Service Bus Queue 'EventManagement.Message' provisioned."
-
-      - name: Create Azure Service Bus Topic for TicketRequestedEvent
-        run: |
-          az servicebus topic create \
-            --resource-group "$RESOURCE_GROUP" \
-            --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
-          echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
-
-      # Platform API
-      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Platform.Api
-        run: |
-          az servicebus queue create \
-            --resource-group "$RESOURCE_GROUP" \
-            --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name Platform.Api
-          echo "Azure Service Bus Queue 'Platform.Api' provisioned."
-
-      # Platform Message
-      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Platform.Message
-        run: |
-          az servicebus queue create \
-            --resource-group "$RESOURCE_GROUP" \
-            --namespace-name "$SERVICEBUS_NAMESPACE" \
-            --name Platform.Message
-          echo "Azure Service Bus Queue 'Platform.Message' provisioned."
-
-      # Create Azure CosmosDB instance for EventManagement (lowest paid tier)
-      - name: Create Azure CosmosDB Account for eventmanagement
-        run: |
-          az cosmosdb create \
-            --name eventmanagementdb \
-            --resource-group "$RESOURCE_GROUP" \
-            --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
-            --default-consistency-level Session \
-            --kind GlobalDocumentDB
-          echo "Azure CosmosDB Account 'eventmanagement' provisioned with default (lowest) tier."
-
-      - name: Wait for CosmosDB Account EventManagementDb to be available
-        run: |
-          for i in {1..20}; do
-            az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" && break
-            echo "Waiting for CosmosDB account 'eventmanagementdb' to be ready... ($i/20)"
-            sleep 15
-          done
-          echo "CosmosDB account 'eventmanagementdb' is now available."
-
-      - name: Create CosmosDB Database for Events
-        run: |
-          az cosmosdb sql database create \
-            --account-name eventmanagementdb \
-            --resource-group "$RESOURCE_GROUP" \
-            --name eventmanagement
-          echo "CosmosDB Database 'eventmanagement' created."
-
-      - name: Wait for CosmosDB Database eventmanagement to be available
-        run: |
-          for i in {1..20}; do
-            az cosmosdb sql database show --account-name eventmanagementdb --resource-group "$RESOURCE_GROUP" --name eventmanagement && break
-            echo "Waiting for CosmosDB database 'eventmanagement' to be ready... ($i/20)"
-            sleep 10
-          done
-          echo "CosmosDB database 'eventmanagement' is now available."
-
-      - name: Create CosmosDB Collection for Events
-        run: |
-          az cosmosdb sql container create \
-            --account-name eventmanagementdb \
-            --resource-group "$RESOURCE_GROUP" \
-            --database-name eventmanagement \
-            --name Events \
-            --partition-key-path "/id"
-          echo "CosmosDB Collection 'Events' created in database 'eventmanagement'."
+  call-eventmanagement-infra:
+    needs: deploy-shared-infra
+    uses: ./.github/workflows/Domain_EventManagement_Infra.yml
+    with:
+      resource_group: ${{ needs.deploy-shared-infra.outputs.resource_group }}
+      containerapps_env: ${{ needs.deploy-shared-infra.outputs.containerapps_env }}
+      azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
+      servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
+      managed_identity_name: acmetickets-eventmgmt-mi
+      container_app_name: acmetickets-eventmgmt-api
 
 

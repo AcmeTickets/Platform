@@ -1,0 +1,127 @@
+name: Event Management Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      resource_group:
+        description: 'Azure Resource Group'
+        required: true
+        type: string
+        default: acmetickets_rg
+      containerapps_env:
+        description: 'Azure Container Apps Environment'
+        required: true
+        type: string
+        default: acmeticketsacadev
+      azure_location:
+        description: 'Azure Region'
+        required: true
+        type: string
+        default: eastus2
+      servicebus_namespace:
+        description: 'Azure Service Bus Namespace'
+        required: true
+        type: string
+        default: acmeticketsasb
+      managed_identity_name:
+        description: 'User Assigned Managed Identity Name'
+        required: true
+        type: string
+        default: acmetickets-eventmgmt-mi
+      container_app_name:
+        description: 'Azure Container App Name'
+        required: true
+        type: string
+        default: acmetickets-eventmgmt-api
+
+  workflow_call:
+    inputs:
+      resource_group:
+        description: 'Azure Resource Group'
+        required: true
+        type: string
+      containerapps_env:
+        description: 'Azure Container Apps Environment'
+        required: true
+        type: string
+      azure_location:
+        description: 'Azure Region'
+        required: true
+        type: string
+      servicebus_namespace:
+        description: 'Azure Service Bus Namespace'
+        required: true
+        type: string
+      managed_identity_name:
+        description: 'User Assigned Managed Identity Name'
+        required: true
+        type: string
+      container_app_name:
+        description: 'Azure Container App Name'
+        required: true
+        type: string
+        
+permissions:
+    contents: read
+    id-token: write # Required to fetch an OIDC token for Azure login.
+    actions: write # Required to use the Azure login action.
+
+jobs:
+  deploy-container-app:
+    runs-on: ubuntu-latest 
+    env:
+      RESOURCE_GROUP: ${{ inputs.resource_group }}
+      CONTAINERAPPS_ENVIRONMENT: ${{ inputs.containerapps_env }}
+      AZURE_LOCATION: ${{ inputs.azure_location }}
+      SERVICEBUS_NAMESPACE: ${{ inputs.servicebus_namespace }}
+      MANAGED_IDENTITY_NAME: ${{ inputs.managed_identity_name }}
+      CONTAINER_APP_NAME: ${{ inputs.container_app_name }}
+    steps:
+      - name: Azure CLI Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Assign Service Bus Data Sender/Receiver roles to Managed Identity
+      - name: Get Managed Identity Resource ID
+        id: mi
+        run: |
+          MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          echo "id=$MI_ID" >> $GITHUB_OUTPUT
+
+      - name: Get Service Bus Namespace Resource ID
+        id: sb
+        run: |
+          SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          echo "id=$SB_ID" >> $GITHUB_OUTPUT
+
+      - name: Assign Service Bus Data Sender role to Managed Identity
+        run: |
+          az role assignment create \
+            --assignee ${{ steps.mi.outputs.id }} \
+            --role "Azure Service Bus Data Sender" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Assign Service Bus Data Receiver role to Managed Identity
+        run: |
+          az role assignment create \
+            --assignee ${{ steps.mi.outputs.id }} \
+            --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Check if Azure Container App exists
+        id: check_aca
+        run: |
+          result=$(az containerapp show --name "$CONTAINER_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv 2>/dev/null || echo "notfound")
+          echo "result=$result" >> $GITHUB_OUTPUT
+
+      - name: Create API App
+        if: ${{ steps.check_aca.outputs.result == 'notfound' }}
+        run: |
+          az containerapp create \
+            --name "$CONTAINER_APP_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --environment "$CONTAINERAPPS_ENVIRONMENT" \
+            --ingress external
