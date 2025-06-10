@@ -7,7 +7,7 @@ on:
         description: 'Azure Resource Group'
         required: true
         type: string
-        default: acmetickets_rg
+        default: acmetickets-rg
       containerapps_env:
         description: 'Azure Container Apps Environment'
         required: true
