@@ -41,13 +41,13 @@ jobs:
         id: loganalytics
         run: |
           WORKSPACE_NAME="workspace-${RESOURCE_GROUP,,}"
-          EXISTING=$(az monitor.log-analytics workspace list --resource-group "$RESOURCE_GROUP" --query "[?name=='$WORKSPACE_NAME'].id" -o tsv)
+          EXISTING=$(az monitor log-analytics workspace list --resource-group "$RESOURCE_GROUP" --query "[?name=='$WORKSPACE_NAME'].id" -o tsv)
           if [ -z "$EXISTING" ]; then
-            az monitor.log-analytics workspace create \
+            az monitor log-analytics workspace create \
               --resource-group "$RESOURCE_GROUP" \
               --workspace-name "$WORKSPACE_NAME"
             echo "Created Log Analytics workspace: $WORKSPACE_NAME"
-            EXISTING=$(az monitor.log-analytics workspace show --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query id -o tsv)
+            EXISTING=$(az monitor log-analytics workspace show --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query id -o tsv)
           else
             echo "Log Analytics workspace already exists: $WORKSPACE_NAME"
           fi
