@@ -9,7 +9,7 @@ permissions:
   actions: write
 
 env:
-  RESOURCE_GROUP: acmetickets_rg
+  RESOURCE_GROUP: acmetickets-rg
   CONTAINERAPPS_ENVIRONMENT: acmeticketsacadev
   AZURE_LOCATION: eastus2
   SERVICEBUS_NAMESPACE: acmeticketsasb
