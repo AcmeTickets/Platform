@@ -37,12 +37,29 @@ jobs:
             --location "$AZURE_LOCATION"
           echo "Resource group '$RESOURCE_GROUP' ensured."
 
+      - name: Ensure Log Analytics Workspace exists
+        id: loganalytics
+        run: |
+          WORKSPACE_NAME="workspace-${RESOURCE_GROUP,,}"
+          EXISTING=$(az monitor.log-analytics workspace list --resource-group "$RESOURCE_GROUP" --query "[?name=='$WORKSPACE_NAME'].id" -o tsv)
+          if [ -z "$EXISTING" ]; then
+            az monitor.log-analytics workspace create \
+              --resource-group "$RESOURCE_GROUP" \
+              --workspace-name "$WORKSPACE_NAME"
+            echo "Created Log Analytics workspace: $WORKSPACE_NAME"
+            EXISTING=$(az monitor.log-analytics workspace show --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query id -o tsv)
+          else
+            echo "Log Analytics workspace already exists: $WORKSPACE_NAME"
+          fi
+          echo "workspace_id=$EXISTING" >> $GITHUB_OUTPUT
+
       - name: Create Azure Container Apps Environment
         run: |
           az containerapp env create \
             --name "$CONTAINERAPPS_ENVIRONMENT" \
             --resource-group "$RESOURCE_GROUP" \
-            --location "$AZURE_LOCATION"
+            --location "$AZURE_LOCATION" \
+            --logs-workspace-id "${{ steps.loganalytics.outputs.workspace_id }}"
           echo "Azure Container Apps Environment provisioned."
 
       - name: Create Azure Service Bus Namespace
@@ -72,5 +89,9 @@ jobs:
       servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
       managed_identity_name: acmetickets-eventmgmt-mi
       container_app_name: acmetickets-eventmgmt-api
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 
