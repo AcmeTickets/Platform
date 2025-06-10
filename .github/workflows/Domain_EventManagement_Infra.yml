@@ -91,19 +91,22 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Ensure Managed Identity exists and get Resource ID
+      # Ensure Managed Identity exists and get Resource ID and Principal ID
       - name: Ensure Managed Identity exists and get Resource ID
         id: mi
         run: |
           MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv 2>/dev/null || true)
+          MI_PRINCIPAL_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query principalId -o tsv 2>/dev/null || true)
           if [ -z "$MI_ID" ]; then
             az identity create --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP"
             MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+            MI_PRINCIPAL_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query principalId -o tsv)
             echo "Created managed identity: $MANAGED_IDENTITY_NAME"
           else
             echo "Managed identity already exists: $MANAGED_IDENTITY_NAME"
           fi
           echo "id=$MI_ID" >> $GITHUB_OUTPUT
+          echo "principal_id=$MI_PRINCIPAL_ID" >> $GITHUB_OUTPUT
 
       - name: Get Service Bus Namespace Resource ID
         id: sb
@@ -114,14 +117,16 @@ jobs:
       - name: Assign Service Bus Data Sender role to Managed Identity
         run: |
           az role assignment create \
-            --assignee ${{ steps.mi.outputs.id }} \
+            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
             --role "Azure Service Bus Data Sender" \
             --scope ${{ steps.sb.outputs.id }}
 
       - name: Assign Service Bus Data Receiver role to Managed Identity
         run: |
           az role assignment create \
-            --assignee ${{ steps.mi.outputs.id }} \
+            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
             --role "Azure Service Bus Data Receiver" \
             --scope ${{ steps.sb.outputs.id }}
 
