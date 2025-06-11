@@ -199,3 +199,42 @@ jobs:
             --namespace-name "$SERVICEBUS_NAMESPACE" \
             --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
           echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
+
+      # Create Azure CosmosDB instance for EventManagement (lowest paid tier)
+      - name: Create Azure CosmosDB Account for EventManagementDb
+        run: |
+          set -e
+          az cosmosdb create \
+            --name eventmanagementdb \
+            --resource-group "$RESOURCE_GROUP" \
+            --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
+            --default-consistency-level Session \
+            --kind GlobalDocumentDB
+          echo "Azure CosmosDB Account 'eventmanagementdb' provisioned with default (lowest) tier."
+
+      - name: Create CosmosDB Database and Collection for Events
+        run: |
+          set -e
+          az cosmosdb sql database create \
+            --account-name eventmanagementdb \
+            --resource-group "$RESOURCE_GROUP" \
+            --name EventManagement
+          az cosmosdb sql container create \
+            --account-name eventmanagementdb \
+            --resource-group "$RESOURCE_GROUP" \
+            --database-name EventManagement \
+            --name Events \
+            --partition-key-path "/id"
+          echo "CosmosDB Collection 'Events' created in database 'EventManagement'."
+
+      # Grant Cosmos DB access to Managed Identity
+      - name: Assign Cosmos DB Built-in Data Contributor role to Managed Identity
+        run: |
+          set -e
+          COSMOSDB_ID=$(az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          az role assignment create \
+            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Cosmos DB Built-in Data Contributor" \
+            --scope "$COSMOSDB_ID"
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to managed identity for Cosmos DB."
