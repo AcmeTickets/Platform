@@ -232,9 +232,10 @@ jobs:
         run: |
           set -e
           COSMOSDB_ID=$(az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
-          az role assignment create \
-            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
-            --assignee-principal-type ServicePrincipal \
-            --role "Cosmos DB Built-in Data Contributor" \
+          az cosmosdb sql role assignment create \
+            --account-name eventmanagementdb \
+            --resource-group "$RESOURCE_GROUP" \
+            --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/eventmanagementdb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+            --principal-id ${{ steps.mi.outputs.principal_id }} \
             --scope "$COSMOSDB_ID"
           echo "Assigned 'Cosmos DB Built-in Data Contributor' role to managed identity for Cosmos DB."
