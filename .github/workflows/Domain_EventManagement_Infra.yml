@@ -235,6 +235,6 @@ jobs:
           az role assignment create \
             --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
             --assignee-principal-type ServicePrincipal \
-            --role "Cosmos DB Account Reader and Data Contributor" \
+            --role "Cosmos DB Built-in Data Contributor" \
             --scope "$COSMOSDB_ID"
-          echo "Assigned 'Cosmos DB Account Reader and Data Contributor' role to managed identity for Cosmos DB."
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to managed identity for Cosmos DB."
