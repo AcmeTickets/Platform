@@ -199,6 +199,16 @@ jobs:
             --namespace-name "$SERVICEBUS_NAMESPACE" \
             --name AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent
           echo "Azure Service Bus Topic 'AcmeTickets.EventManagement.InternalContracts.Events.TicketRequestedEvent' provisioned."
+      
+      - name: Create Azure Service Bus Topic for EventCreatedEvent
+        run: |
+          set -e
+          az servicebus topic create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name EventManagement.Domain.Events.EventCreatedEvent
+          echo "Azure Service Bus Topic 'EventManagement.Domain.Events.EventCreatedEvent' provisioned."
+
 
       # Create Azure CosmosDB instance for EventManagement (lowest paid tier)
       - name: Create Azure CosmosDB Account for EventManagementDb
