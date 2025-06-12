@@ -91,7 +91,6 @@ jobs:
       containerapps_env: ${{ needs.deploy-shared-infra.outputs.containerapps_env }}
       azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
       servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
-      managed_identity_name: acmetickets-eventmgmt-mi
       container_api_name: eventmgmt-api
       container_message_app_name: eventmgmt-msg
     secrets:

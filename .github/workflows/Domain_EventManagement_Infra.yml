@@ -23,11 +23,6 @@ on:
         required: true
         type: string
         default: acmeticketsasb
-      managed_identity_name:
-        description: 'User Assigned Managed Identity Name'
-        required: true
-        type: string
-        default: acmetickets-eventmgmt-mi
       container_api_name:
         description: 'Azure Container API App Name'
         required: true
@@ -57,10 +52,6 @@ on:
         description: 'Azure Service Bus Namespace'
         required: true
         type: string
-      managed_identity_name:
-        description: 'User Assigned Managed Identity Name'
-        required: true
-        type: string
       container_api_name:
         description: 'Azure Container API App Name'
         required: true
@@ -79,8 +70,8 @@ on:
         
 permissions:
     contents: read
-    id-token: write # Required to fetch an OIDC token for Azure login.
-    actions: write # Required to use the Azure login action.
+    id-token: write
+    actions: write
 
 jobs:
   deploy-container-app:
@@ -90,7 +81,6 @@ jobs:
       CONTAINERAPPS_ENVIRONMENT: ${{ inputs.containerapps_env }}
       AZURE_LOCATION: ${{ inputs.azure_location }}
       SERVICEBUS_NAMESPACE: ${{ inputs.servicebus_namespace }}
-      MANAGED_IDENTITY_NAME: ${{ inputs.managed_identity_name }}
       CONTAINER_API_NAME: ${{ inputs.container_api_name }}
       CONTAINER_MESSAGE_APP_NAME: ${{ inputs.container_message_app_name }}
     steps:
@@ -101,51 +91,29 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Ensure Managed Identity exists and get Resource ID and Principal ID
-      - name: Ensure Managed Identity exists and get Resource ID
-        id: mi
-        run: |
-          MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv 2>/dev/null || true)
-          MI_PRINCIPAL_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query principalId -o tsv 2>/dev/null || true)
-          if [ -z "$MI_ID" ]; then
-            az identity create --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP"
-            MI_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
-            MI_PRINCIPAL_ID=$(az identity show --name "$MANAGED_IDENTITY_NAME" --resource-group "$RESOURCE_GROUP" --query principalId -o tsv)
-            echo "Created managed identity: $MANAGED_IDENTITY_NAME"
-          else
-            echo "Managed identity already exists: $MANAGED_IDENTITY_NAME"
-          fi
-          echo "id=$MI_ID" >> $GITHUB_OUTPUT
-          echo "principal_id=$MI_PRINCIPAL_ID" >> $GITHUB_OUTPUT
-
-      - name: Get Service Bus Namespace Resource ID
+      # Ensure Service Bus Namespace exists
+      - name: Ensure Service Bus Namespace exists
         id: sb
         run: |
-          SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv 2>/dev/null || true)
+          if [ -z "$SB_ID" ]; then
+            az servicebus namespace create \
+              --name "$SERVICEBUS_NAMESPACE" \
+              --resource-group "$RESOURCE_GROUP" \
+              --location "$AZURE_LOCATION" \
+              --sku Standard
+            SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          fi
           echo "id=$SB_ID" >> $GITHUB_OUTPUT
 
-      - name: Assign Service Bus Data Sender role to Managed Identity
-        run: |
-          az role assignment create \
-            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
-            --assignee-principal-type ServicePrincipal \
-            --role "Azure Service Bus Data Sender" \
-            --scope ${{ steps.sb.outputs.id }}
-
-      - name: Assign Service Bus Data Receiver role to Managed Identity
-        run: |
-          az role assignment create \
-            --assignee-object-id ${{ steps.mi.outputs.principal_id }} \
-            --assignee-principal-type ServicePrincipal \
-            --role "Azure Service Bus Data Receiver" \
-            --scope ${{ steps.sb.outputs.id }}
-
-      - name: Check if Azure Container App exists
+      # Check if Azure Container API App exists
+      - name: Check if Azure Container API App exists
         id: check_aca
         run: |
           result=$(az containerapp show --name "$CONTAINER_API_NAME" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv 2>/dev/null || echo "notfound")
           echo "result=$result" >> $GITHUB_OUTPUT
 
+      # Create API App with System-Assigned Identity
       - name: Create API App
         if: ${{ steps.check_aca.outputs.result == 'notfound' }}
         run: |
@@ -153,7 +121,32 @@ jobs:
             --name "$CONTAINER_API_NAME" \
             --resource-group "$RESOURCE_GROUP" \
             --environment "$CONTAINERAPPS_ENVIRONMENT" \
-            --ingress external
+            --ingress external \
+            --system-assigned
+
+      # Get API App Principal ID
+      - name: Get API App Principal ID
+        id: api_identity
+        run: |
+          PRINCIPAL_ID=$(az containerapp show --name "$CONTAINER_API_NAME" --resource-group "$RESOURCE_GROUP" --query identity.principalId -o tsv)
+          echo "principal_id=$PRINCIPAL_ID" >> $GITHUB_OUTPUT
+
+      # Assign Service Bus roles to API App
+      - name: Assign Service Bus Data Sender role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Sender" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Assign Service Bus Data Receiver role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
 
       # Check if Azure Container Message App exists
       - name: Check if Azure Container Message App exists
@@ -162,6 +155,7 @@ jobs:
           result=$(az containerapp show --name "$CONTAINER_MESSAGE_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv 2>/dev/null || echo "notfound")
           echo "result=$result" >> $GITHUB_OUTPUT
 
+      # Create Message App with System-Assigned Identity
       - name: Create Message App
         if: ${{ steps.check_msg_aca.outputs.result == 'notfound' }}
         run: |
@@ -169,22 +163,44 @@ jobs:
             --name "$CONTAINER_MESSAGE_APP_NAME" \
             --resource-group "$RESOURCE_GROUP" \
             --environment "$CONTAINERAPPS_ENVIRONMENT" \
-            --ingress external
+            --ingress internal \
+            --system-assigned
 
-      # EventManagement API
+      # Get Message App Principal ID
+      - name: Get Message App Principal ID
+        id: msg_identity
+        run: |
+          PRINCIPAL_ID=$(az containerapp show --name "$CONTAINER_MESSAGE_APP_NAME" --resource-group "$RESOURCE_GROUP" --query identity.principalId -o tsv)
+          echo "principal_id=$PRINCIPAL_ID" >> $GITHUB_OUTPUT
+
+      # Assign Service Bus roles to Message App
+      - name: Assign Service Bus Data Sender role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Sender" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Assign Service Bus Data Receiver role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Create Azure Service Bus Queues and Topics
       - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Api
         run: |
-          set -e
           az servicebus queue create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
             --name EventManagement.Api
           echo "Azure Service Bus Queue 'EventManagement.Api' provisioned."
 
-      # EventManagement Message
       - name: Create Azure Service Bus Queue for NServiceBus Endpoint EventManagement.Message
         run: |
-          set -e
           az servicebus queue create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
@@ -193,7 +209,6 @@ jobs:
 
       - name: Create Azure Service Bus Topic for TicketRequestedEvent
         run: |
-          set -e
           az servicebus topic create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
@@ -202,18 +217,15 @@ jobs:
       
       - name: Create Azure Service Bus Topic for EventCreatedEvent
         run: |
-          set -e
           az servicebus topic create \
             --resource-group "$RESOURCE_GROUP" \
             --namespace-name "$SERVICEBUS_NAMESPACE" \
             --name EventManagement.Domain.Events.EventCreatedEvent
           echo "Azure Service Bus Topic 'EventManagement.Domain.Events.EventCreatedEvent' provisioned."
 
-
-      # Create Azure CosmosDB instance for EventManagement (lowest paid tier)
+      # Create Azure CosmosDB instance
       - name: Create Azure CosmosDB Account for EventManagementDb
         run: |
-          set -e
           az cosmosdb create \
             --name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
@@ -224,7 +236,6 @@ jobs:
 
       - name: Create CosmosDB Database and Collection for Events
         run: |
-          set -e
           az cosmosdb sql database create \
             --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
@@ -237,31 +248,26 @@ jobs:
             --partition-key-path "/id"
           echo "CosmosDB Collection 'Events' created in database 'EventManagement'."
 
-      # Grant Cosmos DB access to Managed Identity
-      - name: Assign Cosmos DB Built-in Data Contributor role to Managed Identity
+      # Assign Cosmos DB role to API App
+      - name: Assign Cosmos DB Built-in Data Contributor role to API App
         run: |
-          set -e
           COSMOSDB_ID=$(az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
           az cosmosdb sql role assignment create \
             --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
             --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/eventmanagementdb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
-            --principal-id ${{ steps.mi.outputs.principal_id }} \
+            --principal-id ${{ steps.api_identity.outputs.principal_id }} \
             --scope "$COSMOSDB_ID"
-          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to managed identity for Cosmos DB."
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to API App for Cosmos DB."
 
-      - name: Assign Managed Identity to API Container App
+      # Assign Cosmos DB role to Message App
+      - name: Assign Cosmos DB Built-in Data Contributor role to Message App
         run: |
-          az containerapp identity assign \
-            --name "$CONTAINER_API_NAME" \
+          COSMOSDB_ID=$(az cosmosdb show --name eventmanagementdb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          az cosmosdb sql role assignment create \
+            --account-name eventmanagementdb \
             --resource-group "$RESOURCE_GROUP" \
-            --user-assigned ${{ steps.mi.outputs.id }}
-          echo "Assigned managed identity to API container app."
-
-      - name: Assign Managed Identity to Message Container App
-        run: |
-          az containerapp identity assign \
-            --name "$CONTAINER_MESSAGE_APP_NAME" \
-            --resource-group "$RESOURCE_GROUP" \
-            --user-assigned ${{ steps.mi.outputs.id }}
-          echo "Assigned managed identity to Message container app."
+            --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/eventmanagementdb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+            --principal-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --scope "$COSMOSDB_ID"
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to Message App for Cosmos DB."
