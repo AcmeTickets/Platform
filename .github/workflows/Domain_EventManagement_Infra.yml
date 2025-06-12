@@ -249,3 +249,19 @@ jobs:
             --principal-id ${{ steps.mi.outputs.principal_id }} \
             --scope "$COSMOSDB_ID"
           echo "Assigned 'Cosmos DB Built-in Data Contributor' role to managed identity for Cosmos DB."
+
+      - name: Assign Managed Identity to API Container App
+        run: |
+          az containerapp identity assign \
+            --name "$CONTAINER_API_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --user-assigned ${{ steps.mi.outputs.id }}
+          echo "Assigned managed identity to API container app."
+
+      - name: Assign Managed Identity to Message Container App
+        run: |
+          az containerapp identity assign \
+            --name "$CONTAINER_MESSAGE_APP_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --user-assigned ${{ steps.mi.outputs.id }}
+          echo "Assigned managed identity to Message container app."
