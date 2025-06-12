@@ -148,6 +148,15 @@ jobs:
             --role "Azure Service Bus Data Receiver" \
             --scope ${{ steps.sb.outputs.id }}
 
+      # Assign Service Bus Data Owner role to API App (for subscription management)
+      - name: Assign Service Bus Data Owner role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Owner" \
+            --scope ${{ steps.sb.outputs.id }}
+
       # Check if Azure Container Message App exists
       - name: Check if Azure Container Message App exists
         id: check_msg_aca
@@ -188,6 +197,15 @@ jobs:
             --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
             --assignee-principal-type ServicePrincipal \
             --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Assign Service Bus Data Owner role to Message App (if needed for subscription management)
+      - name: Assign Service Bus Data Owner role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Owner" \
             --scope ${{ steps.sb.outputs.id }}
 
       # Create Azure Service Bus Queues and Topics
