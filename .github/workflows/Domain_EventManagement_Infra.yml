@@ -173,7 +173,12 @@ jobs:
             --resource-group "$RESOURCE_GROUP" \
             --environment "$CONTAINERAPPS_ENVIRONMENT" \
             --ingress internal \
-            --system-assigned
+            --system-assigned \
+            --probe-liveness-initial-delay 10 \
+            --probe-liveness-type http \
+            --probe-liveness-http-path /healthz \
+            --probe-liveness-http-port 8080 \
+            --probe-liveness-http-headers "" 
 
       # Get Message App Principal ID
       - name: Get Message App Principal ID
