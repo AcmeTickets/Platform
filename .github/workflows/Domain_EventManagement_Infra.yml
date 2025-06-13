@@ -173,7 +173,9 @@ jobs:
             --resource-group "$RESOURCE_GROUP" \
             --environment "$CONTAINERAPPS_ENVIRONMENT" \
             --ingress external \
-            --system-assigned 
+            --system-assigned \
+            --min-replicas 1
+            
 
       # Get Message App Principal ID
       - name: Get Message App Principal ID
