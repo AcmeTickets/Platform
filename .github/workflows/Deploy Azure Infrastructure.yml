@@ -98,4 +98,17 @@ jobs:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-
+  call-platformcompose-infra:
+    needs: deploy-shared-infra
+    uses: ./.github/workflows/Domain_PlatformCompose_Infra.yml
+    with:
+      resource_group: ${{ needs.deploy-shared-infra.outputs.resource_group }}
+      containerapps_env: ${{ needs.deploy-shared-infra.outputs.containerapps_env }}
+      azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
+      servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
+      container_api_name: platformcomp-api
+      container_message_app_name: platformcomp-msg
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
