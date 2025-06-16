@@ -281,7 +281,7 @@ jobs:
           echo "Assigned 'Cosmos DB Built-in Data Contributor' role to API App for Cosmos DB."
 
       # Assign Cosmos DB role to Message App
-      - name: Assign Cosmos DB Built-in Data Contributor role to Message App
+      - name: Assign Cosmos D B Built-in Data Contributor role to Message App
         run: |
           COSMOSDB_ID=$(az cosmosdb show --name "$COSMOSDB_ACCOUNT" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
           az cosmosdb sql role assignment create \
