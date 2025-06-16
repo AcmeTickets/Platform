@@ -246,7 +246,7 @@ jobs:
       - name: Create Azure CosmosDB Account for InventoryDb
         run: |
           az cosmosdb create \
-            --name inventorydb \
+            --name inventorydbacmeti \
             --resource-group "$RESOURCE_GROUP" \
             --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
             --default-consistency-level Session \
@@ -256,11 +256,11 @@ jobs:
       - name: Create CosmosDB Database and Collection for Events
         run: |
           az cosmosdb sql database create \
-            --account-name inventorydb \
+            --account-name inventorydbacmeti \
             --resource-group "$RESOURCE_GROUP" \
             --name Inventory
           az cosmosdb sql container create \
-            --account-name inventorydb \
+            --account-name inventorydbacmeti \
             --resource-group "$RESOURCE_GROUP" \
             --database-name Inventory \
             --name Events \
@@ -272,7 +272,7 @@ jobs:
         run: |
           COSMOSDB_ID=$(az cosmosdb show --name inventorydb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
           az cosmosdb sql role assignment create \
-            --account-name inventorydb \
+            --account-name inventorydbacmeti \
             --resource-group "$RESOURCE_GROUP" \
             --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/inventorydb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
             --principal-id ${{ steps.api_identity.outputs.principal_id }} \
@@ -282,9 +282,9 @@ jobs:
       # Assign Cosmos DB role to Message App
       - name: Assign Cosmos DB Built-in Data Contributor role to Message App
         run: |
-          COSMOSDB_ID=$(az cosmosdb show --name inventorydb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          COSMOSDB_ID=$(az cosmosdb show --name inventorydbacmeti --resource-group "$RESOURCE_GROUP" --query id -o tsv)
           az cosmosdb sql role assignment create \
-            --account-name inventorydb \
+            --account-name inventorydbacmeti \
             --resource-group "$RESOURCE_GROUP" \
             --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/inventorydb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
             --principal-id ${{ steps.msg_identity.outputs.principal_id }} \
