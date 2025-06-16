@@ -1,0 +1,292 @@
+name: Event Management Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      resource_group:
+        description: 'Azure Resource Group'
+        required: true
+        type: string
+        default: acmetickets-rg
+      containerapps_env:
+        description: 'Azure Container Apps Environment'
+        required: true
+        type: string
+        default: acmeticketsacadev
+      azure_location:
+        description: 'Azure Region'
+        required: true
+        type: string
+        default: eastus2
+      servicebus_namespace:
+        description: 'Azure Service Bus Namespace'
+        required: true
+        type: string
+        default: acmeticketsasb
+      container_api_name:
+        description: 'Azure Container API App Name'
+        required: true
+        type: string
+        default: inventory-api
+      container_message_app_name:
+        description: 'Azure Container Message App Name'
+        required: true
+        type: string
+        default: inventory-msg
+
+  workflow_call:
+    inputs:
+      resource_group:
+        description: 'Azure Resource Group'
+        required: true
+        type: string
+      containerapps_env:
+        description: 'Azure Container Apps Environment'
+        required: true
+        type: string
+      azure_location:
+        description: 'Azure Region'
+        required: true
+        type: string
+      servicebus_namespace:
+        description: 'Azure Service Bus Namespace'
+        required: true
+        type: string
+      container_api_name:
+        description: 'Azure Container API App Name'
+        required: true
+        type: string
+      container_message_app_name:
+        description: 'Azure Container Message App Name'
+        required: true
+        type: string
+    secrets:
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+        
+permissions:
+    contents: read
+    id-token: write
+    actions: write
+
+jobs:
+  deploy-container-app:
+    runs-on: ubuntu-latest 
+    env:
+      RESOURCE_GROUP: ${{ inputs.resource_group }}
+      CONTAINERAPPS_ENVIRONMENT: ${{ inputs.containerapps_env }}
+      AZURE_LOCATION: ${{ inputs.azure_location }}
+      SERVICEBUS_NAMESPACE: ${{ inputs.servicebus_namespace }}
+      CONTAINER_API_NAME: ${{ inputs.container_api_name }}
+      CONTAINER_MESSAGE_APP_NAME: ${{ inputs.container_message_app_name }}
+    steps:
+      - name: Azure CLI Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Ensure Service Bus Namespace exists
+      - name: Ensure Service Bus Namespace exists
+        id: sb
+        run: |
+          SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv 2>/dev/null || true)
+          if [ -z "$SB_ID" ]; then
+            az servicebus namespace create \
+              --name "$SERVICEBUS_NAMESPACE" \
+              --resource-group "$RESOURCE_GROUP" \
+              --location "$AZURE_LOCATION" \
+              --sku Standard
+            SB_ID=$(az servicebus namespace show --name "$SERVICEBUS_NAMESPACE" --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          fi
+          echo "id=$SB_ID" >> $GITHUB_OUTPUT
+
+      # Check if Azure Container API App exists
+      - name: Check if Azure Container API App exists
+        id: check_aca
+        run: |
+          result=$(az containerapp show --name "$CONTAINER_API_NAME" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv 2>/dev/null || echo "notfound")
+          echo "result=$result" >> $GITHUB_OUTPUT
+
+      # Create API App with System-Assigned Identity
+      - name: Create API App
+        if: ${{ steps.check_aca.outputs.result == 'notfound' }}
+        run: |
+          az containerapp create \
+            --name "$CONTAINER_API_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --environment "$CONTAINERAPPS_ENVIRONMENT" \
+            --ingress external \
+            --system-assigned
+
+      # Get API App Principal ID
+      - name: Get API App Principal ID
+        id: api_identity
+        run: |
+          PRINCIPAL_ID=$(az containerapp show --name "$CONTAINER_API_NAME" --resource-group "$RESOURCE_GROUP" --query identity.principalId -o tsv)
+          echo "principal_id=$PRINCIPAL_ID" >> $GITHUB_OUTPUT
+
+      # Assign Service Bus roles to API App
+      - name: Assign Service Bus Data Sender role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Sender" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Assign Service Bus Data Receiver role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Assign Service Bus Data Owner role to API App (for subscription management)
+      - name: Assign Service Bus Data Owner role to API App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.api_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Owner" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Check if Azure Container Message App exists
+      - name: Check if Azure Container Message App exists
+        id: check_msg_aca
+        run: |
+          result=$(az containerapp show --name "$CONTAINER_MESSAGE_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "name" --output tsv 2>/dev/null || echo "notfound")
+          echo "result=$result" >> $GITHUB_OUTPUT
+
+      # Create Message App with System-Assigned Identity
+      - name: Create Message App
+        if: ${{ steps.check_msg_aca.outputs.result == 'notfound' }}
+        run: |
+          az containerapp create \
+            --name "$CONTAINER_MESSAGE_APP_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --environment "$CONTAINERAPPS_ENVIRONMENT" \
+            --ingress external \
+            --system-assigned \
+            --min-replicas 1
+            
+
+      # Get Message App Principal ID
+      - name: Get Message App Principal ID
+        id: msg_identity
+        run: |
+          PRINCIPAL_ID=$(az containerapp show --name "$CONTAINER_MESSAGE_APP_NAME" --resource-group "$RESOURCE_GROUP" --query identity.principalId -o tsv)
+          echo "principal_id=$PRINCIPAL_ID" >> $GITHUB_OUTPUT
+
+      # Assign Service Bus roles to Message App
+      - name: Assign Service Bus Data Sender role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Sender" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      - name: Assign Service Bus Data Receiver role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Receiver" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Assign Service Bus Data Owner role to Message App (if needed for subscription management)
+      - name: Assign Service Bus Data Owner role to Message App
+        run: |
+          az role assignment create \
+            --assignee-object-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --assignee-principal-type ServicePrincipal \
+            --role "Azure Service Bus Data Owner" \
+            --scope ${{ steps.sb.outputs.id }}
+
+      # Create Azure Service Bus Queues and Topics
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Inventory.Api
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name Inventory.Api
+          echo "Azure Service Bus Queue 'Inventory.Api' provisioned."
+
+      - name: Create Azure Service Bus Queue for NServiceBus Endpoint Inventory.Message
+        run: |
+          az servicebus queue create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name Inventory.Message
+          echo "Azure Service Bus Queue 'Inventory.Message' provisioned."
+
+      - name: Create Azure Service Bus Topic for TicketRequestedEvent
+        run: |
+          az servicebus topic create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name AcmeTickets.Inventory.InternalContracts.Events.TicketRequestedEvent
+          echo "Azure Service Bus Topic 'AcmeTickets.Inventory.InternalContracts.Events.TicketRequestedEvent' provisioned."
+      
+      - name: Create Azure Service Bus Topic for EventCreatedEvent
+        run: |
+          az servicebus topic create \
+            --resource-group "$RESOURCE_GROUP" \
+            --namespace-name "$SERVICEBUS_NAMESPACE" \
+            --name Inventory.Domain.Events.EventCreatedEvent
+          echo "Azure Service Bus Topic 'Inventory.Domain.Events.EventCreatedEvent' provisioned."
+
+      - name: Create Azure CosmosDB Account for InventoryDb
+        run: |
+          az cosmosdb create \
+            --name inventorydb \
+            --resource-group "$RESOURCE_GROUP" \
+            --locations regionName="$AZURE_LOCATION" failoverPriority=0 isZoneRedundant=False \
+            --default-consistency-level Session \
+            --kind GlobalDocumentDB
+          echo "Azure CosmosDB Account 'inventorydb' provisioned with default (lowest) tier."
+
+      - name: Create CosmosDB Database and Collection for Events
+        run: |
+          az cosmosdb sql database create \
+            --account-name inventorydb \
+            --resource-group "$RESOURCE_GROUP" \
+            --name Inventory
+          az cosmosdb sql container create \
+            --account-name inventorydb \
+            --resource-group "$RESOURCE_GROUP" \
+            --database-name Inventory \
+            --name Events \
+            --partition-key-path "/id"
+          echo "CosmosDB Collection 'Events' created in database 'Inventory'."
+
+      # Assign Cosmos DB role to API App
+      - name: Assign Cosmos DB Built-in Data Contributor role to API App
+        run: |
+          COSMOSDB_ID=$(az cosmosdb show --name inventorydb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          az cosmosdb sql role assignment create \
+            --account-name inventorydb \
+            --resource-group "$RESOURCE_GROUP" \
+            --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/inventorydb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+            --principal-id ${{ steps.api_identity.outputs.principal_id }} \
+            --scope "$COSMOSDB_ID"
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to API App for Cosmos DB."
+
+      # Assign Cosmos DB role to Message App
+      - name: Assign Cosmos DB Built-in Data Contributor role to Message App
+        run: |
+          COSMOSDB_ID=$(az cosmosdb show --name inventorydb --resource-group "$RESOURCE_GROUP" --query id -o tsv)
+          az cosmosdb sql role assignment create \
+            --account-name inventorydb \
+            --resource-group "$RESOURCE_GROUP" \
+            --role-definition-id "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.DocumentDB/databaseAccounts/inventorydb/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002" \
+            --principal-id ${{ steps.msg_identity.outputs.principal_id }} \
+            --scope "$COSMOSDB_ID"
+          echo "Assigned 'Cosmos DB Built-in Data Contributor' role to Message App for Cosmos DB."
