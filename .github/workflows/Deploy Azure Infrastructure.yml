@@ -19,6 +19,7 @@ env:
   CONTAINERAPPS_ENVIRONMENT: acmeticketsacadev
   AZURE_LOCATION: eastus2
   SERVICEBUS_NAMESPACE: acmeticketsasb
+  APPCONFIG_NAME: AcmeTicketsInfraConfiguration
 
 jobs:
   deploy-shared-infra:
