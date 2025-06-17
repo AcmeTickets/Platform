@@ -23,16 +23,11 @@ on:
         required: true
         type: string
         default: acmeticketsasb
-      container_api_name:
-        description: 'Azure Container API App Name'
+      shortdomainname:
+        description: 'Short domain name (e.g., eventmgmt)'
         required: true
         type: string
-        default: eventmgmt-api
-      container_message_app_name:
-        description: 'Azure Container Message App Name'
-        required: true
-        type: string
-        default: eventmgmt-msg
+        default: eventmgmt
 
   workflow_call:
     inputs:
@@ -52,12 +47,8 @@ on:
         description: 'Azure Service Bus Namespace'
         required: true
         type: string
-      container_api_name:
-        description: 'Azure Container API App Name'
-        required: true
-        type: string
-      container_message_app_name:
-        description: 'Azure Container Message App Name'
+      shortdomainname:
+        description: 'Short domain name (e.g., eventmgmt)'
         required: true
         type: string
     secrets:
@@ -81,8 +72,8 @@ jobs:
       CONTAINERAPPS_ENVIRONMENT: ${{ inputs.containerapps_env }}
       AZURE_LOCATION: ${{ inputs.azure_location }}
       SERVICEBUS_NAMESPACE: ${{ inputs.servicebus_namespace }}
-      CONTAINER_API_NAME: ${{ inputs.container_api_name }}
-      CONTAINER_MESSAGE_APP_NAME: ${{ inputs.container_message_app_name }}
+      CONTAINER_API_NAME: ${{ inputs.shortdomainname }}-api
+      CONTAINER_MESSAGE_APP_NAME: ${{ inputs.shortdomainname }}-msg
     steps:
       - name: Azure CLI Login
         uses: azure/login@v2
@@ -176,7 +167,6 @@ jobs:
             --system-assigned \
             --min-replicas 1
             
-
       # Get Message App Principal ID
       - name: Get Message App Principal ID
         id: msg_identity
