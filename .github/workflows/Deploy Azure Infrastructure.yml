@@ -95,6 +95,15 @@ jobs:
             --sku Standard
           echo "Azure Service Bus Namespace '$SERVICEBUS_NAMESPACE' provisioned."
 
+      - name: Add ServiceBusNamespace to Azure App Configuration
+        run: |
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "Shared:AzureServiceBusNamespace" \
+            --value "$SERVICEBUS_NAMESPACE" \
+            --yes
+          echo "Added ServiceBusNamespace to Azure App Configuration."
+
       - name: Set workflow outputs
         id: set-outputs
         run: |
