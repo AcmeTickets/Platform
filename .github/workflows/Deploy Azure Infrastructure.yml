@@ -62,6 +62,10 @@ jobs:
           echo "workspace_customer_id=$WORKSPACE_CUSTOMER_ID" >> $GITHUB_OUTPUT
           echo "workspace_shared_key=$WORKSPACE_SHARED_KEY" >> $GITHUB_OUTPUT
       
+      - name: Register Microsoft.AppConfiguration provider
+        run: |
+          az provider register --namespace Microsoft.AppConfiguration
+
       - name: Create Azure App Configuration instance
         run: |
           az appconfig create \
