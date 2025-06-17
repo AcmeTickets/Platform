@@ -2,6 +2,12 @@ name: Deploy Azure Infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      ExecuteDomainInfra:
+        description: 'Execute domain infrastructure jobs after this point'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -55,6 +61,15 @@ jobs:
           WORKSPACE_SHARED_KEY=$(az monitor log-analytics workspace get-shared-keys --resource-group "$RESOURCE_GROUP" --workspace-name "$WORKSPACE_NAME" --query primarySharedKey -o tsv)
           echo "workspace_customer_id=$WORKSPACE_CUSTOMER_ID" >> $GITHUB_OUTPUT
           echo "workspace_shared_key=$WORKSPACE_SHARED_KEY" >> $GITHUB_OUTPUT
+      
+      - name: Create Azure App Configuration instance
+        run: |
+          az appconfig create \
+            --name "$APPCONFIG_NAME" \
+            --resource-group "$RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION" \
+            --sku Free
+          echo "Azure App Configuration instance '$APPCONFIG_NAME' provisioned."
 
       - name: Create Azure Container Apps Environment
         run: |
@@ -85,6 +100,7 @@ jobs:
 
   call-eventmanagement-infra:
     needs: deploy-shared-infra
+    if: ${{ github.event.inputs.ExecuteDomainInfra == 'true' }}
     uses: ./.github/workflows/Domain_EventManagement_Infra.yml
     with:
       resource_group: ${{ needs.deploy-shared-infra.outputs.resource_group }}
@@ -100,6 +116,7 @@ jobs:
 
   call-platformcompose-infra:
     needs: deploy-shared-infra
+    if: ${{ github.event.inputs.ExecuteDomainInfra == 'true' }}
     uses: ./.github/workflows/Domain_PlatformCompose_Infra.yml
     with:
       resource_group: ${{ needs.deploy-shared-infra.outputs.resource_group }}
@@ -115,6 +132,7 @@ jobs:
 
   call-inventory-infra:
     needs: deploy-shared-infra
+    if: ${{ github.event.inputs.ExecuteDomainInfra == 'true' }}
     uses: ./.github/workflows/Domain_Inventory_Infra.yml
     with:
       resource_group: ${{ needs.deploy-shared-infra.outputs.resource_group }}
