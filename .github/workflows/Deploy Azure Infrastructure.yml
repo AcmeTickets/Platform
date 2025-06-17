@@ -122,7 +122,7 @@ jobs:
       azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
       servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
       shortdomainname: eventmgmt
-      appconfig_name: ${{ env.APPCONFIG_NAME }}
+      appconfig_name: ${{ vars.APPCONFIG_NAME }}
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
@@ -138,7 +138,7 @@ jobs:
       azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
       servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
       shortdomainname: platformcomp
-      appconfig_name: ${{ env.APPCONFIG_NAME }}
+      appconfig_name: ${{ vars.APPCONFIG_NAME }}
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
@@ -154,7 +154,7 @@ jobs:
       azure_location: ${{ needs.deploy-shared-infra.outputs.azure_location }}
       servicebus_namespace: ${{ needs.deploy-shared-infra.outputs.servicebus_namespace }}
       shortdomainname: inventory
-      appconfig_name: ${{ env.APPCONFIG_NAME }}
+      appconfig_name: ${{ vars.APPCONFIG_NAME }}
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
