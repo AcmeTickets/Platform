@@ -28,6 +28,11 @@ on:
         required: true
         type: string
         default: inventory
+      appconfig_name:
+        description: 'Azure App Configuration Name'
+        required: true
+        type: string
+        default: AcmeInfraConfiguration
 
   workflow_call:
     inputs:
@@ -49,6 +54,10 @@ on:
         type: string
       shortdomainname:
         description: 'Short domain name (e.g., inventory)'
+        required: true
+        type: string
+      appconfig_name:
+        description: 'Azure App Configuration Name'
         required: true
         type: string
     secrets:
@@ -75,6 +84,7 @@ jobs:
       CONTAINER_API_NAME: ${{ inputs.shortdomainname }}-api
       CONTAINER_MESSAGE_APP_NAME: ${{ inputs.shortdomainname }}-msg
       COSMOSDB_ACCOUNT: inventorydbacmeti
+      APPCONFIG_NAME: ${{ inputs.appconfig_name }}
     steps:
       - name: Azure CLI Login
         uses: azure/login@v2
@@ -282,3 +292,28 @@ jobs:
             --principal-id ${{ steps.msg_identity.outputs.principal_id }} \
             --scope "$COSMOSDB_ID"
           echo "Assigned 'Cosmos DB Built-in Data Contributor' role to Message App for Cosmos DB."
+
+      # Set required environment variables in Azure App Configuration
+      - name: Set required environment variables in Azure App Configuration
+        run: |
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "${{ inputs.shortdomainname }}:AzureServiceBus__FullyQualifiedNamespace" \
+            --value "$SERVICEBUS_NAMESPACE.servicebus.windows.net" --yes
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "${{ inputs.shortdomainname }}:COSMOSDB_ACCOUNT" \
+            --value "$COSMOSDB_ACCOUNT" --yes
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "${{ inputs.shortdomainname }}:CosmosDb__DatabaseName" \
+            --value "Inventory" --yes
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "${{ inputs.shortdomainname }}:CosmosDb__ContainerName" \
+            --value "Events" --yes
+          az appconfig kv set \
+            --name "$APPCONFIG_NAME" \
+            --key "${{ inputs.shortdomainname }}:CosmosDb__AccountEndpoint" \
+            --value "https://$COSMOSDB_ACCOUNT.documents.azure.com:443/" --yes
+          echo "Set required environment variables in Azure App Configuration with shortdomainname prefix."
