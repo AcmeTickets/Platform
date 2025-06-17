@@ -302,10 +302,6 @@ jobs:
             --value "$SERVICEBUS_NAMESPACE.servicebus.windows.net" --yes
           az appconfig kv set \
             --name "$APPCONFIG_NAME" \
-            --key "${{ inputs.shortdomainname }}:COSMOSDB_ACCOUNT" \
-            --value "$COSMOSDB_ACCOUNT" --yes
-          az appconfig kv set \
-            --name "$APPCONFIG_NAME" \
             --key "${{ inputs.shortdomainname }}:CosmosDb__DatabaseName" \
             --value "Inventory" --yes
           az appconfig kv set \

@@ -301,10 +301,6 @@ jobs:
             --value "$SERVICEBUS_NAMESPACE.servicebus.windows.net" --yes
           az appconfig kv set \
             --name "$APPCONFIG_NAME" \
-            --key "${{ inputs.shortdomainname }}:COSMOSDB_ACCOUNT" \
-            --value "eventmanagementdb" --yes
-          az appconfig kv set \
-            --name "$APPCONFIG_NAME" \
             --key "${{ inputs.shortdomainname }}:CosmosDb__DatabaseName" \
             --value "EventManagement" --yes
           az appconfig kv set \
