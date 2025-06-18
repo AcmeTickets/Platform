@@ -1,4 +1,4 @@
-name: Event Management Infrastructure
+name: Platform Compose Infrastructure
 
 on:
   workflow_dispatch:

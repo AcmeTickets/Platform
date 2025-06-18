@@ -1,4 +1,4 @@
-name: Event Management Infrastructure
+name: Inventory Infrastructure
 
 on:
   workflow_dispatch:

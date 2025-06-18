@@ -1,4 +1,4 @@
-name: Event Management Infrastructure
+name: Human Resources Infrastructure
 
 on:
   workflow_dispatch:
