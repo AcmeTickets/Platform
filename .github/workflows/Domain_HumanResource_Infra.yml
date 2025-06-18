@@ -27,7 +27,6 @@ on:
         description: 'Short domain name (e.g., platformcomp)'
         required: true
         type: string
-        default: platformcomp
       appconfig_name:
         description: 'Azure App Configuration Name'
         required: true
@@ -83,8 +82,8 @@ jobs:
       SERVICEBUS_NAMESPACE: ${{ inputs.servicebus_namespace }}
       CONTAINER_API_NAME: ${{ inputs.shortdomainname }}-api
       CONTAINER_MESSAGE_APP_NAME: ${{ inputs.shortdomainname }}-msg
-      DOMAIN_NAME: PlatformCompose
-      COSMOSDB_ACCOUNT: platformcomposedb
+      DOMAIN_NAME: HumanResources
+      COSMOSDB_ACCOUNT: humanresourcesAcmedb
       APPCONFIG_NAME: ${{ inputs.appconfig_name }}
     steps:
       - name: Azure CLI Login
