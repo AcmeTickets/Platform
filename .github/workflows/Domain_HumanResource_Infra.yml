@@ -83,7 +83,7 @@ jobs:
       CONTAINER_API_NAME: ${{ inputs.shortdomainname }}-api
       CONTAINER_MESSAGE_APP_NAME: ${{ inputs.shortdomainname }}-msg
       DOMAIN_NAME: HumanResources
-      COSMOSDB_ACCOUNT: humanresourcesAcmedb
+      COSMOSDB_ACCOUNT: humanresourcesacmedb
       APPCONFIG_NAME: ${{ inputs.appconfig_name }}
     steps:
       - name: Azure CLI Login
