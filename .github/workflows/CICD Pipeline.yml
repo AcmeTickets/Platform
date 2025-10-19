@@ -9,10 +9,31 @@ on:
     paths:
       - 'src/Api/**'
       - 'src/Message/**'
+      - 'tests/**'
   workflow_dispatch:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore Platform.sln
+    
+    - name: Build
+      run: dotnet build Platform.sln --no-restore --configuration Release
+    
+    - name: Run tests
+      run: dotnet test Platform.sln --no-build --configuration Release --verbosity normal
+
   build-and-publish-api:
+    needs: test
     uses: AcmeTickets/.github/.github/workflows/Build and Publish Docker Image.yml@main
     secrets: inherit
     with:
@@ -30,6 +51,7 @@ jobs:
       target_port: 5272
 
   build-and-publish-message:
+    needs: test
     uses: AcmeTickets/.github/.github/workflows/Build and Publish Docker Image.yml@main
     secrets: inherit
     with:

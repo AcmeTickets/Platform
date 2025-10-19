@@ -15,11 +15,10 @@
   <ItemGroup Label="Transitive dependencies">
     <PackageReference Include="NServiceBus" Version="9.*" />
     <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.*" />
-    <PackageReference Include="AcmeTickets.Contracts.Public" Version="1.0.0" />
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\InternalContracts\InternalContracts.csproj" />
+    <ProjectReference Include="..\Contracts\Public\PublicContracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
